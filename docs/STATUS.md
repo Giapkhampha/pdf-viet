@@ -4,10 +4,10 @@
 > Đọc file này đầu mỗi phiên dài để biết chính xác đang ở đâu.
 
 ## Cập nhật lần cuối
-**01/05/2026** — Deploy preview Vercel thành công, chuẩn bị production.
+**01/05/2026** — Ra mắt tool Ghép PDF (Phase A — MVP).
 
 ## Phiên bản hiện tại
-`v0.3.0` — Metadata SEO, favicon, deploy preview Vercel.
+`v0.4.0` — Tool Ghép PDF (Phase A — MVP).
 
 ---
 
@@ -25,12 +25,18 @@
   - [x] Trang `/tools/pdf-sang-md` — drag & drop, options, preview, download, copy
   - [x] Worker `pdf.worker.min.mjs` copy vào `public/`
   - [x] Detect PDF scan → cảnh báo thân thiện
+- [x] **Tool thứ hai: Ghép PDF** (Phase A — MVP)
+  - [x] Drag & drop nhiều file PDF
+  - [x] Sắp xếp bằng kéo thả + nút ↑↓ (mobile-friendly)
+  - [x] Tùy chọn trang từng file với cú pháp `1-3, 5, 7-10`
+  - [x] Logic shared: `lib/pdf-merge.js` (pdf-lib)
+  - [x] Logic shared: `lib/parse-page-ranges.js` (đã test 14 case)
+  - [x] Validate file PDF có mật khẩu, file hỏng — error tiếng Việt thân thiện
 
 ## 🚧 Đang làm
 - [ ] *(trống — Phase A xong)*
 
 ## 📋 Đã lên lịch ngắn hạn (sprint hiện tại)
-- [ ] **Tool: Ghép PDF** — `pdf-lib`, drag & drop nhiều file, sắp xếp thứ tự, export 1 file
 - [ ] **Tool: PDF → Word** — dùng `lib/pdf-extract.js` có sẵn + `docx` để tạo `.docx`
 - [ ] **Header chung** — logo PDF Việt + nav tới các tool
 - [ ] **Trang chủ** nâng cấp — giới thiệu + list tool đã có
@@ -50,6 +56,7 @@
 | 01/05/2026 | v0.2.0 | Ra mắt tool PDF → Markdown (Phase A) + FileDropzone + lib/pdf-extract |
 | 01/05/2026 | v0.2.1 | Fix escape ký tự đặc biệt quá đà trong PDF → Markdown |
 | 01/05/2026 | v0.3.0 | Metadata SEO + favicon SVG + deploy preview Vercel |
+| 01/05/2026 | v0.4.0 | Ra mắt tool Ghép PDF (Phase A) — drag-drop sắp xếp, tùy chọn trang từng file |
 
 ---
 

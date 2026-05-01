@@ -9,11 +9,11 @@ const tools = [
   { id: "html-to-pdf", title: "HTML sang PDF", desc: "Chuyển trang web thành PDF", icon: "🌐", color: "purple" },
   // Chuyển từ PDF ra
   { id: "pdf-to-markdown", href: "/tools/pdf-sang-md", title: "PDF sang Markdown", desc: "Chuyển PDF sang .md dùng với ChatGPT, Claude, Gemini", icon: "📝", color: "emerald" },
+  { id: "merge", href: "/tools/ghep-pdf", title: "Ghép PDF", desc: "Ghép nhiều PDF thành 1 file, có thể chọn trang cụ thể của từng file. Sắp xếp lại bằng kéo thả.", icon: "🧩", color: "teal" },
   { id: "pdf-to-word", title: "PDF sang Word", desc: "Chuyển PDF thành file Word có thể sửa", icon: "📝", color: "blue" },
   { id: "pdf-to-jpg", title: "PDF sang Ảnh", desc: "Xuất từng trang PDF thành ảnh", icon: "🖼️", color: "yellow" },
   { id: "pdf-to-excel", title: "PDF sang Excel", desc: "Trích xuất bảng từ PDF sang Excel", icon: "📊", color: "green" },
   // Chỉnh sửa PDF
-  { id: "merge", title: "Ghép PDF", desc: "Kết hợp nhiều PDF thành một", icon: "🔗", color: "teal" },
   { id: "split", title: "Tách PDF", desc: "Chia PDF thành nhiều file nhỏ", icon: "✂️", color: "red" },
   { id: "compress", title: "Nén PDF", desc: "Giảm dung lượng file PDF", icon: "🗜️", color: "indigo" },
   { id: "rotate", title: "Xoay PDF", desc: "Xoay trang PDF theo góc tùy chọn", icon: "🔄", color: "cyan" },
