@@ -8,6 +8,7 @@ const tools = [
   { id: "jpg-to-pdf", title: "Ảnh sang PDF", desc: "Ghép JPG, PNG thành file PDF", icon: "🖼️", color: "pink" },
   { id: "html-to-pdf", title: "HTML sang PDF", desc: "Chuyển trang web thành PDF", icon: "🌐", color: "purple" },
   // Chuyển từ PDF ra
+  { id: "pdf-to-markdown", href: "/tools/pdf-sang-md", title: "PDF sang Markdown", desc: "Chuyển PDF sang .md dùng với ChatGPT, Claude, Gemini", icon: "📝", color: "emerald" },
   { id: "pdf-to-word", title: "PDF sang Word", desc: "Chuyển PDF thành file Word có thể sửa", icon: "📝", color: "blue" },
   { id: "pdf-to-jpg", title: "PDF sang Ảnh", desc: "Xuất từng trang PDF thành ảnh", icon: "🖼️", color: "yellow" },
   { id: "pdf-to-excel", title: "PDF sang Excel", desc: "Trích xuất bảng từ PDF sang Excel", icon: "📊", color: "green" },
@@ -43,6 +44,7 @@ const colorMap = {
   cyan: "bg-cyan-50 text-cyan-600 border-cyan-100",
   gray: "bg-gray-50 text-gray-600 border-gray-100",
   violet: "bg-violet-50 text-violet-600 border-violet-100",
+  emerald: "bg-emerald-50 text-emerald-600 border-emerald-100",
 };
 
 export default function Home() {
@@ -78,7 +80,7 @@ export default function Home() {
           {tools.map((tool) => (
             <Link
               key={tool.id}
-              href={`/tool/${tool.id}`}
+              href={tool.href ?? `/tool/${tool.id}`}
               className="bg-white rounded-xl border border-gray-200 p-5 hover:shadow-md hover:border-blue-200 transition-all group cursor-pointer"
             >
               <div className={`w-12 h-12 rounded-xl border flex items-center justify-center text-2xl mb-3 ${colorMap[tool.color] || colorMap.blue}`}>
