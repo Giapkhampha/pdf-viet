@@ -4,10 +4,10 @@
 > Đọc file này đầu mỗi phiên dài để biết chính xác đang ở đâu.
 
 ## Cập nhật lần cuối
-**01/05/2026** — Ra mắt tool Ghép PDF (Phase A — MVP).
+**01/05/2026** — Fix critical: gỡ proxy stirling.tools, đồng nhất workerSrc pdfjs.
 
 ## Phiên bản hiện tại
-`v0.4.0` — Tool Ghép PDF (Phase A — MVP).
+`v0.4.1` — Fix bảo mật & ổn định trước khi marketing.
 
 ---
 
@@ -32,6 +32,8 @@
   - [x] Logic shared: `lib/pdf-merge.js` (pdf-lib)
   - [x] Logic shared: `lib/parse-page-ranges.js` (đã test 14 case)
   - [x] Validate file PDF có mật khẩu, file hỏng — error tiếng Việt thân thiện
+- [x] **Fix v0.4.1:** Xóa API route `/api/process` vi phạm cam kết privacy
+- [x] **Fix v0.4.1:** Đồng nhất workerSrc pdfjs-dist sang `/pdf.worker.min.mjs`
 
 ## 🚧 Đang làm
 - [ ] *(trống — Phase A xong)*
@@ -45,7 +47,7 @@
 - [ ] ⚠️ **Favicon & OG image** riêng cho PDF Việt — **bắt buộc trước khi deploy production thật sự** (hiện dùng favicon Next.js mặc định, OG image trống)
 - [ ] Chưa quyết định **domain**: domain riêng hay subdomain `pdf.giapkhampha.me`?
 - [ ] Chiến lược **cache language data Tesseract** (10MB tiếng Việt) — Service Worker hay localforage?
-- [ ] ~~Cấu hình **worker `pdfjs-dist`** cho Next.js 16 App Router~~ — đã giải quyết (copy vào `public/`, lazy import)
+- [x] ~~Cấu hình **worker `pdfjs-dist`** cho Next.js 16 App Router~~ — đã giải quyết hoàn toàn (v0.4.1: nhất quán `/pdf.worker.min.mjs` ở mọi nơi)
 
 ---
 
@@ -57,6 +59,7 @@
 | 01/05/2026 | v0.2.1 | Fix escape ký tự đặc biệt quá đà trong PDF → Markdown |
 | 01/05/2026 | v0.3.0 | Metadata SEO + favicon SVG + deploy preview Vercel |
 | 01/05/2026 | v0.4.0 | Ra mắt tool Ghép PDF (Phase A) — drag-drop sắp xếp, tùy chọn trang từng file |
+| 01/05/2026 | v0.4.1 | Fix critical: gỡ proxy stirling.tools, đồng nhất workerSrc pdfjs |
 
 ---
 

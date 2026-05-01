@@ -43,8 +43,7 @@ const triggerDownload = (bytes, filename, mime = "application/pdf") => {
 // ─── HELPER: Load PDF.js với worker local ────────────────────────────────────
 async function getPdfJs() {
   const pdfjsLib = await import("pdfjs-dist");
-  pdfjsLib.GlobalWorkerOptions.workerSrc =
-    new URL("pdfjs-dist/build/pdf.worker.min.mjs", import.meta.url).toString();
+  pdfjsLib.GlobalWorkerOptions.workerSrc = "/pdf.worker.min.mjs";
   return pdfjsLib;
 }
 
