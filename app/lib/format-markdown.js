@@ -120,9 +120,11 @@ export function toMarkdown(extractedData, options = {}) {
 
 /**
  * Check if extracted data looks like a scanned PDF (no/very little text).
- * Heuristic: fewer than 10 total text items across all pages.
+ * Heuristic: average fewer than 5 text items per page.
+ * More reliable than a fixed total — avoids false positives on short single-page PDFs.
  */
 export function isLikelyScan(extractedData) {
+  if (extractedData.length === 0) return true;
   const totalItems = extractedData.reduce((sum, page) => sum + page.items.length, 0);
-  return totalItems < 10;
+  return totalItems / extractedData.length < 5;
 }

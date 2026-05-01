@@ -35,10 +35,10 @@
 - [ ] **Trang chủ** nâng cấp — giới thiệu + list tool đã có
 
 ## 🚫 Blocker / Câu hỏi mở
-- [ ] Chưa có **favicon** & **OG image** riêng cho PDF Việt
+- [ ] ⚠️ **Favicon & OG image** riêng cho PDF Việt — **bắt buộc trước khi deploy production thật sự** (hiện dùng favicon Next.js mặc định, OG image trống)
 - [ ] Chưa quyết định **domain**: domain riêng hay subdomain `pdf.giapkhampha.me`?
-- [ ] Cấu hình **worker `pdfjs-dist`** cho Next.js 16 App Router cần test (có thể có quirk khi build production)
 - [ ] Chiến lược **cache language data Tesseract** (10MB tiếng Việt) — Service Worker hay localforage?
+- [ ] ~~Cấu hình **worker `pdfjs-dist`** cho Next.js 16 App Router~~ — đã giải quyết (copy vào `public/`, lazy import)
 
 ---
 
