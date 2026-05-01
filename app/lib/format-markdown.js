@@ -12,10 +12,25 @@
 const LINE_Y_TOLERANCE = 2; // px — items within this range share a line
 const PARAGRAPH_GAP_THRESHOLD = 15; // px — gap larger than this = new paragraph
 
-const MD_ESCAPE_RE = /([\\`*_{}[\]()#+\-.!|])/g;
+// Only escape chars that are *always* problematic anywhere in inline text.
+// Punctuation like . , : ( ) - # are NOT escaped globally — they are safe
+// in the middle of sentences and the over-escaping breaks readability.
+const MD_ESCAPE_RE = /([\\`*_[\]])/g;
 
 function escapeMd(text) {
   return text.replace(MD_ESCAPE_RE, "\\$1");
+}
+
+// Prevent assembled paragraph text from accidentally triggering Markdown
+// block elements at the start of a paragraph. Called after items are joined,
+// so we can inspect the actual leading character.
+function sanitizeParaStart(para) {
+  // "- " or "+ " at start → would create an unordered list item
+  para = para.replace(/^([-+]) /, "\\$1 ");
+  // 1–6 "#" followed by space or end-of-string → would create an ATX heading.
+  // CommonMark requires "# " (hash + space); "#1:" is NOT a heading.
+  para = para.replace(/^(#{1,6})( |$)/, (_, hashes, after) => hashes.replace(/#/g, "\\#") + after);
+  return para;
 }
 
 /**
@@ -70,10 +85,12 @@ function groupIntoParagraphs(lines) {
   paragraphs.push(currentLines);
 
   return paragraphs.map((group) =>
-    group
-      .map((line) => line.items.map((item) => escapeMd(item.text)).join(" "))
-      .join(" ")
-      .trim()
+    sanitizeParaStart(
+      group
+        .map((line) => line.items.map((item) => escapeMd(item.text)).join(" "))
+        .join(" ")
+        .trim()
+    )
   );
 }
 

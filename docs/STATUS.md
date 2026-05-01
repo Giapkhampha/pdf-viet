@@ -7,7 +7,7 @@
 **01/05/2026** — Ra mắt tool PDF → Markdown (Phase A MVP).
 
 ## Phiên bản hiện tại
-`v0.2.0` — Tool đầu tiên: PDF → Markdown.
+`v0.2.1` — Fix escape ký tự đặc biệt quá đà trong PDF → Markdown.
 
 ---
 
@@ -47,6 +47,7 @@
 |---|---|---|
 | 01/05/2026 | v0.1.0 | Khởi tạo dự án + bộ tài liệu |
 | 01/05/2026 | v0.2.0 | Ra mắt tool PDF → Markdown (Phase A) + FileDropzone + lib/pdf-extract |
+| 01/05/2026 | v0.2.1 | Fix escape ký tự đặc biệt quá đà trong PDF → Markdown |
 
 ---
 
