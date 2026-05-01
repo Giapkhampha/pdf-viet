@@ -4,10 +4,10 @@
 > Đọc file này đầu mỗi phiên dài để biết chính xác đang ở đâu.
 
 ## Cập nhật lần cuối
-**01/05/2026** — Ra mắt tool PDF → Markdown (Phase A MVP).
+**01/05/2026** — Deploy preview Vercel thành công, chuẩn bị production.
 
 ## Phiên bản hiện tại
-`v0.2.1` — Fix escape ký tự đặc biệt quá đà trong PDF → Markdown.
+`v0.3.0` — Metadata SEO, favicon, deploy preview Vercel.
 
 ---
 
@@ -17,6 +17,7 @@
 - [x] Cấu hình ESLint, PostCSS, jsconfig (alias `@/*`)
 - [x] Tạo bộ tài liệu dự án (CLAUDE.md + docs/)
 - [x] Footer kết nối hệ sinh thái GIAP KHAMPHA (`app/components/Footer.jsx`)
+- [x] Metadata SEO đầy đủ (OG, Twitter Card) + favicon SVG tạm
 - [x] **Tool đầu tiên: PDF → Markdown** (Phase A — MVP)
   - [x] Component reusable: `FileDropzone.jsx`
   - [x] Logic shared: `lib/pdf-extract.js` (pdfjs-dist, tái dùng cho tool khác)
@@ -48,6 +49,7 @@
 | 01/05/2026 | v0.1.0 | Khởi tạo dự án + bộ tài liệu |
 | 01/05/2026 | v0.2.0 | Ra mắt tool PDF → Markdown (Phase A) + FileDropzone + lib/pdf-extract |
 | 01/05/2026 | v0.2.1 | Fix escape ký tự đặc biệt quá đà trong PDF → Markdown |
+| 01/05/2026 | v0.3.0 | Metadata SEO + favicon SVG + deploy preview Vercel |
 
 ---
 
