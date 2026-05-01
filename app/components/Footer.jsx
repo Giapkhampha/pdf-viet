@@ -52,7 +52,7 @@ export default function Footer() {
           <div className="lg:col-span-2">
             {/* Logo text 2 màu */}
             <ExternalLink
-              href="https://giapkhampha.me"
+              href="https://giapkhamphame.vercel.app"
               className="inline-flex items-baseline gap-0.5 mb-3 group"
               aria-label="GIAP KHAMPHA - trang chủ hệ sinh thái"
             >
@@ -76,7 +76,7 @@ export default function Footer() {
 
             {/* CTA button */}
             <ExternalLink
-              href="https://giapkhampha.me"
+              href="https://giapkhamphame.vercel.app"
               className="inline-flex items-center gap-2 bg-emerald-500 hover:bg-emerald-400 text-black font-semibold text-sm px-4 py-2 rounded-lg transition-colors duration-200"
               aria-label="Khám phá hệ sinh thái GIAP KHAMPHA"
             >
@@ -88,10 +88,10 @@ export default function Footer() {
           <div>
             <ColHeading>Khám Phá</ColHeading>
             <ul className="space-y-3" aria-label="Liên kết khám phá GIAP KHAMPHA">
-              <NavLink href="https://giapkhampha.me">Trang Chủ GIAP KHAMPHA</NavLink>
-              <NavLink href="https://giapkhampha.me/#san-pham">Sản Phẩm AI</NavLink>
-              <NavLink href="https://giapkhampha.me/#bai-viet">Bài Viết & Góc Nhìn</NavLink>
-              <NavLink href="https://giapkhampha.me/#sach-hay">Sách Hay Cho Bé</NavLink>
+              <NavLink href="https://giapkhamphame.vercel.app">Trang Chủ GIAP KHAMPHA</NavLink>
+              <NavLink href="https://giapkhamphame.vercel.app/#san-pham">Sản Phẩm AI</NavLink>
+              <NavLink href="https://giapkhamphame.vercel.app/#bai-viet">Bài Viết & Góc Nhìn</NavLink>
+              <NavLink href="https://giapkhamphame.vercel.app/#sach-hay">Sách Hay Cho Bé</NavLink>
             </ul>
           </div>
 
@@ -119,9 +119,9 @@ export default function Footer() {
           <div>
             <ColHeading>Tài Nguyên</ColHeading>
             <ul className="space-y-3" aria-label="Tài nguyên từ GIAP KHAMPHA">
-              <NavLink href="https://giapkhampha.me/#tai-nguyen">Tài Nguyên Miễn Phí</NavLink>
-              <NavLink href="https://giapkhampha.me/#tai-nguyen">Lộ Trình AI Cho Bé</NavLink>
-              <NavLink href="https://giapkhampha.me/#ve-toi">Về Ba Maya</NavLink>
+              <NavLink href="https://giapkhamphame.vercel.app/#tai-nguyen">Tài Nguyên Miễn Phí</NavLink>
+              <NavLink href="https://giapkhamphame.vercel.app/#tai-nguyen">Lộ Trình AI Cho Bé</NavLink>
+              <NavLink href="https://giapkhamphame.vercel.app/#ve-toi">Về Ba Maya</NavLink>
             </ul>
           </div>
         </div>
