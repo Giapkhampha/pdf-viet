@@ -1,3 +1,12 @@
+> **Lưu ý:** Đây là báo cáo audit ngày 01/05/2026 (v0.4.0).
+> Một số vấn đề đã được fix:
+> - 6.1 (API proxy stirling.tools) — đã fix tại v0.4.1 (commit 196670c)
+> - 6.2 (workerSrc pdfjs) — đã fix tại v0.4.1 (commit 196670c)
+>
+> Các vấn đề còn lại (6.3, 6.4, 6.5, 7.x) sẽ được xử lý trong các phiên cleanup tiếp theo.
+
+---
+
 # Báo cáo kiểm tra chức năng — PDF Việt
 
 > Ngày kiểm tra: **01/05/2026** | Phiên bản: **v0.4.0** | Thực hiện: Claude Code
@@ -147,35 +156,13 @@ Tất cả các tool dưới đây đi qua file `app/tool/[id]/page.js`.
 
 ### 🔴 Nghiêm trọng
 
-**6.1 — API route `/api/process/route.js` vi phạm cam kết privacy**
+**6.1 — API route `/api/process/route.js` vi phạm cam kết privacy** ✅ **ĐÃ FIX tại v0.4.1**
 
-File này proxy file của user qua server PDF Việt tới `https://stirling.tools`:
-```js
-const res = await fetch(`https://stirling.tools/api/v1/convert/${stirlingId}`, { method: "POST", body: formData });
-```
-Hiện tại **không có client code nào gọi route này**, nhưng route vẫn công khai hoạt động trên production. Nếu ai đó (hoặc code cũ) gọi `POST /api/process`, file user sẽ bị upload lên server nước ngoài — **vi phạm trực tiếp cam kết "100% client-side"** trên mọi trang tool.
-
-→ **Hành động cần làm:** Xóa file này.
-
-**6.2 — Worker pdfjs-dist khác nhau giữa hai vị trí**
-
-`app/lib/pdf-extract.js` dùng:
-```js
-pdfjs.GlobalWorkerOptions.workerSrc = "/pdf.worker.min.mjs"; // public/
-```
-
-`app/tool/[id]/page.js` dùng:
-```js
-pdfjsLib.GlobalWorkerOptions.workerSrc = new URL("pdfjs-dist/build/pdf.worker.min.mjs", import.meta.url).toString();
-```
-
-Cách thứ 2 dùng `import.meta.url` — trong Next.js App Router production build (Turbopack), URL này có thể resolve sai dẫn đến worker không load được. Cần kiểm tra thực tế trên production build.
-
-→ **Hành động cần làm:** Đổi sang cách nhất quán dùng `/pdf.worker.min.mjs` (từ public/).
+**6.2 — Worker pdfjs-dist khác nhau giữa hai vị trí** ✅ **ĐÃ FIX tại v0.4.1**
 
 ---
 
-### 🟡 Vừa
+### 🟡 Vừa (còn mở)
 
 **6.3 — `jspdf` cài thừa**
 
@@ -190,7 +177,7 @@ Khi user nhấn "Xử lý ngay", cả hai tool rơi vào `default` trong switch:
 default:
   throw new Error("Công cụ này đang được phát triển.");
 ```
-User thấy thông báo lỗi đỏ thay vì giao diện "coming soon" thân thiện. Khác với tool `repair` (không có trong toolConfig) — hiện màn hình xây dựng đẹp hơn.
+User thấy thông báo lỗi đỏ thay vì giao diện "coming soon" thân thiện.
 
 → **Hành động:** Hoặc xóa khỏi toolConfig (link → 404), hoặc implement, hoặc handle riêng để hiện thông báo thân thiện.
 
@@ -219,8 +206,8 @@ User thấy thông báo lỗi đỏ thay vì giao diện "coming soon" thân thi
 
 | # | Việc cần làm | Ưu tiên | Khó | Ghi chú |
 |---|---|---|---|---|
-| 1 | Xóa `app/api/process/route.js` | 🔴 Cao | Dễ | Xóa 1 file |
-| 2 | Đồng nhất workerSrc pdfjs-dist | 🔴 Cao | Dễ | Sửa 1 dòng trong `[id]/page.js` |
+| 1 | Xóa `app/api/process/route.js` | 🔴 Cao | Dễ | ✅ Xóa 1 file — đã làm v0.4.1 |
+| 2 | Đồng nhất workerSrc pdfjs-dist | 🔴 Cao | Dễ | ✅ Sửa 1 dòng trong `[id]/page.js` — đã làm v0.4.1 |
 | 3 | Xóa `jspdf` khỏi dependencies | 🟡 Vừa | Dễ | `npm uninstall jspdf` |
 | 4 | Fix `protect`/`unlock` UX | 🟡 Vừa | Dễ | Thêm case vào switch hoặc xóa khỏi toolConfig |
 | 5 | Thêm cảnh báo vào Compress PDF | 🟡 Vừa | Dễ | Thêm `<div>` ghi chú |
