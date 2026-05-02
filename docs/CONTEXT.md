@@ -5,13 +5,13 @@
 - Đang xây dựng hệ sinh thái **GIAP KHAMPHA** — tập trung vào **ứng dụng AI vào giáo dục cho ba mẹ và trẻ em Việt Nam**.
 
 ## Hệ sinh thái GIAP KHAMPHA
-- **Trang chủ:** https://giapkhampha.me
+- **Trang chủ chính thức:** https://giapkhampha.me
 - **Mirror:** https://giapkhamphame.vercel.app
 - **Tagline:** *"Nuôi dưỡng thế hệ số — Khám phá, học hỏi và phát triển cùng con 🌱"*
 
 ### Các sản phẩm trong hệ sinh thái
 1. **giapkhampha.me** — Trang chủ tổng hợp: bài viết, tài nguyên, sách hay, sản phẩm AI giáo dục, gợi ý ý tưởng sáng tạo cho con.
-2. **PDF Việt** ← *Dự án này*
+2. **PDF Việt** — https://pdf.giapkhampha.me ← *Dự án này* (đổi từ pdf-viet.vercel.app)
 3. **Bé Ngoan Kawaii** — App theo dõi hành vi & tiến bộ của trẻ.
 4. (Các sản phẩm khác sẽ được thêm dần)
 
@@ -75,4 +75,5 @@ Mọi sản phẩm trong hệ sinh thái phải có:
 
 ## Tài liệu tham khảo bên ngoài
 - Trang chủ hệ sinh thái: https://giapkhampha.me — xem trực tiếp để bám sát layout, màu, font.
+- PDF Việt production: https://pdf.giapkhampha.me
 - Khi có bất kỳ thay đổi branding ở giapkhampha.me → cần đồng bộ về `docs/CONTEXT.md` này.

@@ -13,14 +13,18 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
+  metadataBase: new URL("https://pdf.giapkhampha.me"),
   title: "PDF Việt — Công cụ xử lý PDF tiếng Việt, miễn phí 100%",
   description: "Bộ công cụ PDF chạy ngay trên trình duyệt — chuyển PDF sang Markdown, Word, ghép tách PDF... File của bạn không upload lên server. Một sản phẩm trong hệ sinh thái GIAP KHAMPHA.",
   keywords: ["PDF tiếng Việt", "chuyển PDF sang Markdown", "công cụ PDF miễn phí", "PDF to MD", "GIAP KHAMPHA"],
   authors: [{ name: "Ba Maya", url: "https://giapkhampha.me" }],
+  alternates: {
+    canonical: "https://pdf.giapkhampha.me",
+  },
   openGraph: {
     title: "PDF Việt — Công cụ xử lý PDF tiếng Việt",
     description: "Chuyển PDF sang Markdown để dùng với ChatGPT/Claude/Gemini. Miễn phí 100%, không upload server.",
-    url: "https://pdf-viet.vercel.app",
+    url: "https://pdf.giapkhampha.me",
     siteName: "PDF Việt",
     locale: "vi_VN",
     type: "website",

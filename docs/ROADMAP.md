@@ -28,7 +28,7 @@
   - Phase B (sau): heuristic heading detection, bold/italic, table
   - Phase C (sau): OCR cho PDF scan tiếng Việt
 - [ ] **Trang Giới Thiệu / Về Ba Maya** — CTA dẫn về giapkhampha.me
-- [ ] **Deploy Vercel** — domain `pdf-viet.vercel.app` hoặc subdomain riêng
+- [x] **Deploy Vercel** — https://pdf.giapkhampha.me (subdomain chính thức, v0.4.2)
 
 ---
 
