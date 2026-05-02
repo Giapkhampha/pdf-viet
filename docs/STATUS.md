@@ -4,10 +4,10 @@
 > Đọc file này đầu mỗi phiên dài để biết chính xác đang ở đâu.
 
 ## Cập nhật lần cuối
-**02/05/2026** — Setup domain chính thức pdf.giapkhampha.me hoạt động.
+**02/05/2026** — Hot fix Footer: đổi link hệ sinh thái sang domain chính thức.
 
 ## Phiên bản hiện tại
-`v0.4.2` — Domain chính thức pdf.giapkhampha.me + Cloudflare DNS + email forward.
+`v0.4.3` — Footer + EcosystemBadge dùng URL giapkhampha.me thay vì giapkhamphame.vercel.app.
 
 ---
 
@@ -48,6 +48,10 @@
   - [x] app/layout.js: metadataBase, openGraph, canonical → URL mới
   - [x] docs/CONTEXT.md: cập nhật URL hệ sinh thái và PDF Việt
   - [x] docs/STATUS.md: ghi nhận v0.4.2
+- [x] **Hot fix Footer URL (v0.4.3)**
+  - [x] Footer.jsx: đổi 4 cột link + CTA "Khám phá hệ sinh thái" sang giapkhampha.me (9 chỗ)
+  - [x] pdf-sang-md/page.jsx: đổi link ecosystem badge sang giapkhampha.me (1 chỗ)
+  - [x] Build + lint pass, deploy Vercel thành công
 
 ## 🚧 Đang làm
 - [ ] *(trống — Phase A xong)*
@@ -75,6 +79,7 @@
 | 01/05/2026 | v0.4.0 | Ra mắt tool Ghép PDF (Phase A) — drag-drop sắp xếp, tùy chọn trang từng file |
 | 01/05/2026 | v0.4.1 | Fix critical: gỡ proxy stirling.tools, đồng nhất workerSrc pdfjs |
 | 02/05/2026 | v0.4.2 | Domain chính thức pdf.giapkhampha.me + Cloudflare DNS + email forward (Tenten + Cloudflare Free) |
+| 02/05/2026 | v0.4.3 | Hot fix Footer + EcosystemBadge: đổi toàn bộ link hệ sinh thái từ giapkhamphame.vercel.app → giapkhampha.me |
 
 ---
 
