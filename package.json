@@ -1,0 +1,29 @@
+{
+  "name": "pdf-viet",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint"
+  },
+  "dependencies": {
+    "docx": "^9.6.1",
+    "jspdf": "^4.2.1",
+    "mammoth": "^1.12.0",
+    "next": "16.2.2",
+    "pdf-lib": "^1.17.1",
+    "pdfjs-dist": "^5.6.205",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
+    "tesseract.js": "^7.0.0",
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "eslint": "^9",
+    "eslint-config-next": "16.2.2",
+    "tailwindcss": "^4"
+  }
+}
