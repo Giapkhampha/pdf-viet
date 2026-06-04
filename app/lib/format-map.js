@@ -56,6 +56,12 @@ const SLUG_TO_FORMATS = {
   // OCR — nhận input ảnh hoặc PDF
   "ocr-tieng-viet":  ["jpg", "png", "pdf"],
 
+  // Xử lý ảnh — Phase 2
+  "heic-sang-jpg":   ["jpg"],
+  "resize-anh":      ["jpg", "png"],
+  "nen-anh":         ["jpg", "png"],
+  "anh-sang-webp":   ["jpg", "png"],
+
   // Tiện ích tiếng Việt — text-only nên gom vào TXT
   "chuyen-vni-unicode": ["txt"],
   "bo-dau-tieng-viet":  ["txt"],

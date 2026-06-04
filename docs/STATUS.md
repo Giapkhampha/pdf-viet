@@ -4,10 +4,26 @@
 > Đọc file này đầu mỗi phiên dài để biết chính xác đang ở đâu.
 
 ## Cập nhật lần cuối
-**04/06/2026** — Phase 1 — Tiện ích tiếng Việt LIVE (4 tool: bỏ dấu, đếm ký tự, VNI→Unicode, lịch âm-dương).
+**04/06/2026** — Phase 2 — Xử lý ảnh LIVE (4 tool: HEIC→JPG, resize, nén, sang WebP).
 
 ## Phiên bản hiện tại
-`v0.7.0` — **Phase 1 hoàn tất**. 21 tool đã chạy được (17 PDF + 4 tiếng Việt). Click TXT planet trên trang chủ giờ thấy 4 tool ready thay vì stub.
+`v0.8.0` — **Phase 2 hoàn tất**. 25 tool đã chạy được (17 PDF + 4 tiếng Việt + 4 ảnh). Trang chủ giờ có 7 category: thêm "Xử lý ảnh 📷" giữa Chỉnh sửa PDF và Bảo mật.
+
+---
+
+## 📷 Phase 2 — Xử lý ảnh (XONG 04/06/2026, v0.8.0)
+> Target: ba mẹ Việt dùng iPhone gửi ảnh tài liệu — pain point HEIC không mở được trên Windows. Plus tool resize/nén/WebP cho người làm content.
+
+- [x] **HEIC sang JPG** ([/tools/heic-sang-jpg](/tools/heic-sang-jpg)) — `lib/image/heic-to-jpg.js` (lazy load `heic2any` ~200KB WebAssembly). Batch convert nhiều file, 3 preset chất lượng, hiện % giảm dung lượng từng file.
+- [x] **Resize ảnh** ([/tools/resize-anh](/tools/resize-anh)) — `lib/image/resize.js` (Canvas API, 0 deps). Input width/height + giữ tỉ lệ auto, preset 75%/50%/25%, preview kết quả + so sánh size.
+- [x] **Nén ảnh** ([/tools/nen-anh](/tools/nen-anh)) — `lib/image/compress.js`. Slider quality 10-100%, preview before/after dung lượng. Cảnh báo PNG lossless → gợi ý WebP.
+- [x] **Ảnh sang WebP** ([/tools/anh-sang-webp](/tools/anh-sang-webp)) — `lib/image/to-webp.js`. Quality slider 20-100%, hiện % giảm dung lượng so với JPG/PNG gốc.
+
+**Hạ tầng đi kèm:**
+- [x] `app/lib/image/_shared.js` — helper chung: `loadImage`, `releaseImage`, `canvasToBlob`, `getImageDimensions`, `formatBytes`, `replaceExtension`.
+- [x] Category mới `image-tools` trong registry — đặt giữa Chỉnh sửa PDF và Bảo mật.
+- [x] Format-map: 4 tool gắn vào planet JPG + PNG → click vào 2 planet này trên trang chủ sẽ thấy đầy đủ tool ảnh.
+- [x] Package mới: `heic2any@^0.0.4` (lazy load, không bloat bundle).
 
 ---
 
@@ -106,14 +122,15 @@
 ---
 
 ## 🚧 Đang làm
-- [ ] *(trống — sẵn sàng cho Phase 2)*
+- [ ] *(trống — sẵn sàng cho Phase 3)*
 
-## 📋 Sprint tiếp theo (Phase 2 — Nhóm Ảnh)
-> Target ba mẹ iPhone gửi ảnh tài liệu cho con/giáo viên.
-- [ ] **HEIC/HEIF → JPG** — cần xin duyệt cài `heic2any` (~200KB)
-- [ ] **Resize ảnh** — Canvas API thuần (0 deps mới)
-- [ ] **Nén ảnh** — Canvas re-encode quality tuỳ chỉnh
-- [ ] **Ảnh → WebP** — giảm dung lượng ~50%
+## 📋 Sprint tiếp theo (Phase 3 — Office & Data)
+- [ ] **CSV ↔ Excel** (`/tools/csv-sang-excel`, `/tools/excel-sang-csv`) — dùng `xlsx` đã có
+- [ ] **Excel ↔ JSON**
+- [ ] **Word → Markdown** — `mammoth` đã có
+- [ ] **Markdown → PDF / Word**
+- [ ] **PDF → Markdown nâng cao** (heading detection thông minh hơn, table extraction)
+- [ ] **Ghép nhiều ảnh thành 1 (collage)** — leftover từ Phase 2, scope nhỏ
 
 ## 🚫 Blocker / Câu hỏi mở
 - [ ] ⚠️ **Favicon & OG image** riêng cho PDF Việt — **bắt buộc trước khi marketing rộng** (hiện dùng favicon Next.js mặc định, OG image trống)
@@ -139,6 +156,7 @@
 | 04/06/2026 | **v0.6.0** | **Cosmic UI**: CosmicHero 9 hành tinh SVG float, CosmicBackground nebula+sao, CrystalLogo, Header redesign. Deploy preview Vercel — PR #1 merged. |
 | 04/06/2026 | **v0.6.1** | **Click quả cầu mở FormatModal**: lọc tool theo định dạng (PDF/WORD/EXCEL/...), createPortal + ESC + click outside để đóng. **Deploy production** thay code Phase A — pdf.giapkhampha.me LIVE. Backup `archive/phase-a-2026-05-02`. |
 | 04/06/2026 | **v0.7.0** | **Phase 1 — Tiện ích tiếng Việt LIVE**: bỏ dấu (3 chế độ), đếm ký tự (thay cho "đổi số ra chữ" theo yêu cầu Ba Maya), VNI→Unicode beta, lịch âm-dương (thuật toán Hồ Ngọc Đức + Can Chi). Click TXT planet trên trang chủ giờ hiện 4 tool ready. |
+| 04/06/2026 | **v0.8.0** | **Phase 2 — Xử lý ảnh LIVE**: HEIC→JPG (heic2any lazy load), Resize ảnh (Canvas + giữ tỉ lệ), Nén ảnh (slider quality), Ảnh→WebP (giảm ~30%). Thêm category mới "Xử lý ảnh 📷". 25 tool ready. |
 
 ---
 
