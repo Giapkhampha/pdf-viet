@@ -4,10 +4,24 @@
 > Đọc file này đầu mỗi phiên dài để biết chính xác đang ở đâu.
 
 ## Cập nhật lần cuối
-**03/06/2026** — Phase 0 (dọn nhà): tái cấu trúc thành "siêu app chuyển đổi", thống nhất 22 tool trong registry duy nhất.
+**04/06/2026** — Cosmic UI + click quả cầu mở modal chọn công cụ chuyển đổi, deploy production thay code Phase A.
 
 ## Phiên bản hiện tại
-`v0.5.0` — **Phase 0 hoàn tất**. Trang chủ dark theme + nhóm tool theo category, dynamic route `/tools/[slug]`, redirect 308 cho link cũ.
+`v0.6.1` — **Cosmic UI + Interactive Planets LIVE** ở https://pdf.giapkhampha.me. Click vào quả cầu hành tinh (PDF/WORD/EXCEL/...) → modal hiển thị tool chuyển đổi liên quan định dạng đó.
+
+---
+
+## 🪐 v0.6.x — Cosmic UI + Interactive Planets (XONG 04/06/2026)
+- [x] **CosmicHero** với 9 hành tinh SVG (PDF/WORD/EXCEL/PPT/JPG/PNG/HTML/MD/TXT) float quanh title trung tâm — `PlanetIcon` SVG gradient + facet + halo, 10 màu preset.
+- [x] **CosmicBackground** — gradient nebula + sao tĩnh + 5 sao twinkle nhấp nháy + 2 nebula cloud drift ngang.
+- [x] **Header dark** với `CrystalLogo` SVG kim cương + gradient text "PDF Việt"; bỏ "Bảng giá"/"Đăng nhập" theo cam kết miễn phí + không backend.
+- [x] **Click quả cầu → mở FormatModal** (v0.6.1):
+  - `app/lib/format-map.js` — 9 FORMATS + `SLUG_TO_FORMATS` + `getToolsByFormat(key)`.
+  - `FormatModal.jsx` client, `createPortal(document.body)`, ESC + click outside để đóng, lock body scroll, animation fade+scale.
+  - Grid card 2 cột, link tới `/tools/<slug>`, stub hiển thị "Sắp có".
+  - Tooltip "Bấm để xem công cụ" khi hover planet (discoverability).
+- [x] **Animation `prefers-reduced-motion`** — disable float/twinkle/glow khi user bật.
+- [x] **Production deploy** 04/06/2026 — https://pdf.giapkhampha.me thay code Phase A. Branch backup `archive/phase-a-2026-05-02` giữ history nếu cần restore.
 
 ---
 
@@ -111,6 +125,8 @@
 | 02/05/2026 | v0.4.2 | Domain chính thức pdf.giapkhampha.me + Cloudflare DNS + email forward |
 | 02/05/2026 | v0.4.3 | Hot fix Footer + EcosystemBadge: đổi link hệ sinh thái → giapkhampha.me |
 | 03/06/2026 | **v0.5.0** | **Phase 0 dọn nhà**: tái cấu trúc 17 tool về `/tools/[slug]` + registry + dark theme đồng nhất, đẩy nhóm Tiện ích tiếng Việt lên Phase 1 |
+| 04/06/2026 | **v0.6.0** | **Cosmic UI**: CosmicHero 9 hành tinh SVG float, CosmicBackground nebula+sao, CrystalLogo, Header redesign. Deploy preview Vercel — PR #1 merged. |
+| 04/06/2026 | **v0.6.1** | **Click quả cầu mở FormatModal**: lọc tool theo định dạng (PDF/WORD/EXCEL/...), createPortal + ESC + click outside để đóng. **Deploy production** thay code Phase A — pdf.giapkhampha.me LIVE. Backup `archive/phase-a-2026-05-02`. |
 
 ---
 
