@@ -59,7 +59,7 @@ const SLUG_TO_FORMATS = {
   // Tiện ích tiếng Việt — text-only nên gom vào TXT
   "chuyen-vni-unicode": ["txt"],
   "bo-dau-tieng-viet":  ["txt"],
-  "so-sang-chu":        ["txt"],
+  "dem-ky-tu":          ["txt"],
   "lich-am-duong":      ["txt"],
 };
 

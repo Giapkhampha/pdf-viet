@@ -22,7 +22,7 @@ export const CATEGORIES = [
   { key: "edit-pdf",         title: "Chỉnh sửa PDF",            desc: "Ghép, tách, xoay, nén, watermark..." },
   { key: "security",         title: "Bảo mật PDF",              desc: "Đặt và gỡ mật khẩu, làm phẳng" },
   { key: "ai-tools",         title: "Công cụ cho AI & OCR",     desc: "Trích xuất text cho ChatGPT, Claude, Gemini" },
-  { key: "vietnamese",       title: "Tiện ích tiếng Việt 🌱",    desc: "Bảng mã, bỏ dấu, đổi số ra chữ, lịch âm — sắp có" },
+  { key: "vietnamese",       title: "Tiện ích tiếng Việt 🌱",    desc: "Bảng mã VNI, bỏ dấu, đếm ký tự, lịch âm-dương" },
 ];
 
 export const tools = [
@@ -212,27 +212,27 @@ export const tools = [
   // ── Tiện ích tiếng Việt — sắp có (đẩy lên Phase 1) ──────────────────────
   {
     slug: "chuyen-vni-unicode",
-    title: "Chuyển VNI/TCVN3 → Unicode",
-    desc: "Chuyển văn bản từ bảng mã VNI, TCVN3, VIQR sang Unicode chuẩn.",
-    icon: "🔤", accent: "amber", category: "vietnamese", status: "stub",
+    title: "Chuyển VNI → Unicode",
+    desc: "Chuyển văn bản gõ bằng keystroke VNI (Tie61ng Vie65t) sang Unicode chuẩn.",
+    icon: "🔤", accent: "amber", category: "vietnamese", status: "ready",
   },
   {
     slug: "bo-dau-tieng-viet",
     title: "Bỏ dấu tiếng Việt",
     desc: "Bỏ dấu \"Tiếng Việt\" → \"Tieng Viet\" để tạo URL slug, tên file.",
-    icon: "✨", accent: "amber", category: "vietnamese", status: "stub",
+    icon: "✨", accent: "amber", category: "vietnamese", status: "ready",
   },
   {
-    slug: "so-sang-chu",
-    title: "Đổi số ra chữ tiếng Việt",
-    desc: "1.500.000 → \"Một triệu năm trăm nghìn đồng\" — dùng cho hợp đồng.",
-    icon: "🔢", accent: "amber", category: "vietnamese", status: "stub",
+    slug: "dem-ky-tu",
+    title: "Đếm ký tự",
+    desc: "Đếm ký tự, từ, dòng, đoạn, ước lượng thời gian đọc — real-time khi gõ.",
+    icon: "📊", accent: "amber", category: "vietnamese", status: "ready",
   },
   {
     slug: "lich-am-duong",
     title: "Đổi lịch âm ↔ dương",
-    desc: "Chuyển đổi ngày âm lịch và dương lịch theo lịch Việt Nam.",
-    icon: "🗓️", accent: "amber", category: "vietnamese", status: "stub",
+    desc: "Chuyển đổi ngày âm lịch và dương lịch theo lịch Việt Nam, kèm Can Chi.",
+    icon: "🗓️", accent: "amber", category: "vietnamese", status: "ready",
   },
 ];
 
