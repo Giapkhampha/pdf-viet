@@ -4,10 +4,28 @@
 > Đọc file này đầu mỗi phiên dài để biết chính xác đang ở đâu.
 
 ## Cập nhật lần cuối
-**04/06/2026** — Phase 3 — Office & Dữ liệu LIVE (6 tool: CSV↔Excel, Excel↔JSON, Word→MD, MD→PDF).
+**04/06/2026** — Phase 4 — QR & Utilities LIVE (4 tool: tạo QR, đọc QR, mã vạch, phân tích PDF). **Tạm dừng phát triển — đợi Ba Maya test/marketing.**
 
 ## Phiên bản hiện tại
-`v0.9.0` — **Phase 3 hoàn tất**. 31 tool đã chạy được (17 PDF + 4 tiếng Việt + 4 ảnh + 6 office/data). Trang chủ 8 category — thêm "Office & Dữ liệu 📊".
+`v0.10.0` — **Phase 4 hoàn tất**. 35 tool đã chạy được. Trang chủ 9 category — thêm "Mã QR & Barcode 📱".
+
+---
+
+## 📱 Phase 4 — QR, Barcode & Phân tích (XONG 04/06/2026, v0.10.0)
+> 3 tool QR/barcode + 1 tool phân tích PDF. Skip ffmpeg.wasm (30MB) để cân nhắc cache strategy sau.
+
+- [x] **Tạo mã QR** ([/tools/tao-qr](/tools/tao-qr)) — `lib/qr/generate.js` (qrcode ~50KB lazy). 3 template: text/URL, WiFi (SSID + password), vCard (danh thiếp). Tuỳ chỉnh size 256/512/1024px, mức sửa lỗi L/M/Q/H.
+- [x] **Đọc mã QR** ([/tools/doc-qr](/tools/doc-qr)) — `lib/qr/decode.js` (jsqr ~30KB lazy). Upload ảnh QR, auto-detect loại (URL, WiFi, vCard, email, tel), nút mở URL trong tab mới.
+- [x] **Tạo mã vạch** ([/tools/tao-ma-vach](/tools/tao-ma-vach)) — `lib/barcode/generate.js` (bwip-js ~150KB lazy). 4 loại phổ biến: Code 128, Code 39, EAN-13, EAN-8. Slider scale, option hiện text dưới.
+- [x] **Phân tích PDF** ([/tools/phan-tich-pdf](/tools/phan-tich-pdf)) — `lib/pdf-analyze.js` (0 deps mới — re-use pdf-extract + count-chars). Số trang, từ, ký tự, câu, đoạn, ước lượng đọc, top 20 từ phổ biến (loại stopwords VN+EN), cảnh báo PDF scan.
+
+**Hạ tầng:**
+- [x] `app/lib/qr/` — generate + decode.
+- [x] `app/lib/barcode/` — generate.
+- [x] `app/lib/pdf-analyze.js` — wrapper re-use.
+- [x] Category mới `code-tools` (📱) đặt giữa Office & Dữ liệu và Bảo mật.
+- [x] Phân tích PDF gắn vào category `ai-tools` (cùng OCR).
+- [x] Package mới: `qrcode@^1.5.4`, `jsqr@^1.4.0`, `bwip-js@^4.11.1` (tất cả lazy load).
 
 ---
 
@@ -141,14 +159,26 @@
 ---
 
 ## 🚧 Đang làm
-- [ ] *(trống — sẵn sàng cho Phase 4)*
+- [ ] *(TẠM DỪNG phát triển sau Phase 4 — Ba Maya test 35 tool + marketing)*
 
-## 📋 Sprint tiếp theo (Phase 4 — QR, mã vạch & media)
-- [ ] **QR Code tạo + đọc** — `qrcode` + `jsqr` (~50KB) — viral cao
-- [ ] **Mã vạch** — `bwip-js` cho giáo viên in nhãn
-- [ ] **MP4 → MP3 / GIF** — `ffmpeg.wasm` lazy load (nặng nhưng cache tốt)
-- [ ] **Đếm từ / phân tích tài liệu** — `pdfjs-dist` + thống kê
-- [ ] **Markdown → Word** (leftover Phase 3) — `mammoth` không hỗ trợ write, cần parser MD → docx tự viết hoặc thư viện
+## 📋 Việc còn lại sau khi quay lại (sắp xếp theo ưu tiên)
+
+### Polish trước marketing rộng (BẮT BUỘC)
+- [ ] ⚠️ **Favicon + OG image riêng** cho PDF Việt — hiện dùng favicon Next.js default, OG image trống. Cần thiết kế logo cosmic crystal trước khi quảng bá.
+- [ ] Watermark + đánh số trang **hỗ trợ tiếng Việt có dấu** — embed font Noto/Roboto Vietnamese vào pdf-lib.
+
+### Phase 5 (đề xuất sau test)
+- [ ] **PWA + offline mode** — sau lần đầu vào, dùng được không mạng.
+- [ ] **Lịch sử cục bộ** (IndexedDB) — xem lại file đã xử lý.
+- [ ] **Plausible/Umami analytics** — privacy-friendly, không Google.
+- [ ] **MP4 → MP3 / GIF** với ffmpeg.wasm 30MB — cần Service Worker cache strategy.
+
+### Backlog Phase 4.1 (nếu user request)
+- [ ] Markdown → Word (cần parser MD → docx).
+- [ ] VNI → Unicode chuẩn 100% (xử lý ơ/ư phức tạp).
+- [ ] Bảng mã TCVN3 → Unicode (font encoding cũ).
+- [ ] Ghép nhiều ảnh thành 1 (collage).
+- [ ] Đặt/Gỡ mật khẩu PDF — khảo sát thư viện.
 
 ## 🚫 Blocker / Câu hỏi mở
 - [ ] ⚠️ **Favicon & OG image** riêng cho PDF Việt — **bắt buộc trước khi marketing rộng** (hiện dùng favicon Next.js mặc định, OG image trống)
@@ -176,6 +206,7 @@
 | 04/06/2026 | **v0.7.0** | **Phase 1 — Tiện ích tiếng Việt LIVE**: bỏ dấu (3 chế độ), đếm ký tự (thay cho "đổi số ra chữ" theo yêu cầu Ba Maya), VNI→Unicode beta, lịch âm-dương (thuật toán Hồ Ngọc Đức + Can Chi). Click TXT planet trên trang chủ giờ hiện 4 tool ready. |
 | 04/06/2026 | **v0.8.0** | **Phase 2 — Xử lý ảnh LIVE**: HEIC→JPG (heic2any lazy load), Resize ảnh (Canvas + giữ tỉ lệ), Nén ảnh (slider quality), Ảnh→WebP (giảm ~30%). Thêm category mới "Xử lý ảnh 📷". 25 tool ready. |
 | 04/06/2026 | **v0.9.0** | **Phase 3 — Office & Dữ liệu LIVE**: CSV↔Excel, Excel↔JSON, Word→Markdown (mammoth + HTML→MD converter tự viết), Markdown→PDF (marked + print). Thêm category "Office & Dữ liệu 📊". 31 tool ready. |
+| 04/06/2026 | **v0.10.0** | **Phase 4 — QR & Utilities LIVE**: Tạo QR (text/WiFi/vCard), Đọc QR (auto-detect loại), Tạo mã vạch (Code128/39/EAN), Phân tích PDF (số trang + top từ + stopwords). Thêm category "Mã QR & Barcode 📱". 35 tool ready. **Tạm dừng phát triển.** |
 
 ---
 

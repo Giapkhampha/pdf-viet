@@ -79,7 +79,20 @@ Xem chi tiết trong `STATUS.md`. Tóm tắt: thống nhất 22 tool về 1 regi
 
 ---
 
-## 🔍 Phase 4 — QR, mã vạch & media
+## ✅ Phase 4 — QR & Utilities (XONG 04/06/2026, v0.10.0)
+
+**Đã ship 4 tool:**
+- [x] Tạo mã QR (text/URL/WiFi/vCard, 4 mức sửa lỗi, 3 size)
+- [x] Đọc mã QR (auto-detect URL/WiFi/vCard/email/tel)
+- [x] Tạo mã vạch (Code 128, Code 39, EAN-13, EAN-8)
+- [x] Phân tích PDF (số trang, từ, top 20 từ phổ biến + stopwords VN/EN)
+
+**Skip Phase 4 này, để sau:**
+- [ ] MP4 → MP3 / GIF với ffmpeg.wasm — 30MB quá nặng, cần Service Worker cache strategy
+
+---
+
+## 🔍 Phase 4 — QR, mã vạch & media (chi tiết gốc)
 
 - [ ] **QR Code tạo + đọc** (`/tools/qr-code`) — `qrcode` + `jsqr` (~50KB) — viral cao
 - [ ] **Mã vạch** — `bwip-js` cho giáo viên in nhãn

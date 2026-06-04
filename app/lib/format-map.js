@@ -70,6 +70,11 @@ const SLUG_TO_FORMATS = {
   "word-sang-md":    ["word", "md"],
   "md-sang-pdf":     ["md", "pdf"],
 
+  // QR/Barcode + phân tích PDF — Phase 4
+  // tao-qr, tao-ma-vach: không gắn planet (không liên quan định dạng input file)
+  "doc-qr":          ["jpg", "png"],   // input là ảnh chứa QR
+  "phan-tich-pdf":   ["pdf"],
+
   // Tiện ích tiếng Việt — text-only nên gom vào TXT
   "chuyen-vni-unicode": ["txt"],
   "bo-dau-tieng-viet":  ["txt"],
