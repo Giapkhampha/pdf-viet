@@ -21,6 +21,7 @@ export const CATEGORIES = [
   { key: "convert-from-pdf", title: "Chuyển PDF sang định dạng khác", desc: "PDF sang Word/Excel/Markdown/Ảnh" },
   { key: "edit-pdf",         title: "Chỉnh sửa PDF",            desc: "Ghép, tách, xoay, nén, watermark..." },
   { key: "image-tools",      title: "Xử lý ảnh 📷",              desc: "HEIC→JPG, resize, nén, chuyển sang WebP" },
+  { key: "office-data",      title: "Office & Dữ liệu 📊",       desc: "CSV ↔ Excel ↔ JSON, Word/Markdown chuyển đổi" },
   { key: "security",         title: "Bảo mật PDF",              desc: "Đặt và gỡ mật khẩu, làm phẳng" },
   { key: "ai-tools",         title: "Công cụ cho AI & OCR",     desc: "Trích xuất text cho ChatGPT, Claude, Gemini" },
   { key: "vietnamese",       title: "Tiện ích tiếng Việt 🌱",    desc: "Bảng mã VNI, bỏ dấu, đếm ký tự, lịch âm-dương" },
@@ -204,6 +205,50 @@ export const tools = [
     desc: "Chuyển JPG, PNG sang WebP để giảm dung lượng ~25-50% mà gần như không mất chất lượng.",
     icon: "🌐", accent: "violet", category: "image-tools",
     accept: "image/jpeg,image/png", multiple: false, status: "ready",
+  },
+
+  // ── Office & Dữ liệu ─────────────────────────────────────────────────────
+  {
+    slug: "csv-sang-excel",
+    title: "CSV sang Excel",
+    desc: "Chuyển .csv thành .xlsx — giữ tiếng Việt UTF-8, dùng cho file xuất từ Google Sheets / Notion.",
+    icon: "📊", accent: "emerald", category: "office-data",
+    accept: ".csv,text/csv", multiple: false, status: "ready",
+  },
+  {
+    slug: "excel-sang-csv",
+    title: "Excel sang CSV",
+    desc: "Chuyển .xlsx/.xls thành .csv UTF-8 với BOM (mở trong Excel không lỗi tiếng Việt). Hỗ trợ nhiều sheet.",
+    icon: "📊", accent: "emerald", category: "office-data",
+    accept: ".xlsx,.xls", multiple: false, status: "ready",
+  },
+  {
+    slug: "excel-sang-json",
+    title: "Excel sang JSON",
+    desc: "Chuyển sheet Excel thành mảng JSON. Row 1 = key. Dùng cho dev import data API.",
+    icon: "🔗", accent: "violet", category: "office-data",
+    accept: ".xlsx,.xls", multiple: false, status: "ready",
+  },
+  {
+    slug: "json-sang-excel",
+    title: "JSON sang Excel",
+    desc: "Chuyển mảng JSON (array of objects) thành file .xlsx — paste hoặc tải file .json.",
+    icon: "🔗", accent: "violet", category: "office-data",
+    accept: ".json,application/json", multiple: false, status: "ready",
+  },
+  {
+    slug: "word-sang-md",
+    title: "Word sang Markdown",
+    desc: "Chuyển .docx thành Markdown để paste vào ChatGPT, Claude, Notion. Giữ heading, list, bảng.",
+    icon: "📝", accent: "blue", category: "office-data",
+    accept: ".docx,.doc", multiple: false, status: "ready",
+  },
+  {
+    slug: "md-sang-pdf",
+    title: "Markdown sang PDF",
+    desc: "Render Markdown thành PDF qua cửa sổ in — giữ font tiếng Việt, hỗ trợ heading/bold/list/code/bảng.",
+    icon: "📝", accent: "violet", category: "office-data",
+    accept: ".md,.markdown", multiple: false, status: "ready",
   },
 
   // ── Bảo mật ──────────────────────────────────────────────────────────────

@@ -4,10 +4,29 @@
 > Đọc file này đầu mỗi phiên dài để biết chính xác đang ở đâu.
 
 ## Cập nhật lần cuối
-**04/06/2026** — Phase 2 — Xử lý ảnh LIVE (4 tool: HEIC→JPG, resize, nén, sang WebP).
+**04/06/2026** — Phase 3 — Office & Dữ liệu LIVE (6 tool: CSV↔Excel, Excel↔JSON, Word→MD, MD→PDF).
 
 ## Phiên bản hiện tại
-`v0.8.0` — **Phase 2 hoàn tất**. 25 tool đã chạy được (17 PDF + 4 tiếng Việt + 4 ảnh). Trang chủ giờ có 7 category: thêm "Xử lý ảnh 📷" giữa Chỉnh sửa PDF và Bảo mật.
+`v0.9.0` — **Phase 3 hoàn tất**. 31 tool đã chạy được (17 PDF + 4 tiếng Việt + 4 ảnh + 6 office/data). Trang chủ 8 category — thêm "Office & Dữ liệu 📊".
+
+---
+
+## 📊 Phase 3 — Office & Dữ liệu (XONG 04/06/2026, v0.9.0)
+> Tool interchange dữ liệu thuần — 0 deps mới cho 5/6 tool (chỉ MD→PDF cài `marked` để parse Markdown chuẩn).
+
+- [x] **CSV sang Excel** ([/tools/csv-sang-excel](/tools/csv-sang-excel)) — `xlsx` (đã có), giữ UTF-8 tiếng Việt.
+- [x] **Excel sang CSV** ([/tools/excel-sang-csv](/tools/excel-sang-csv)) — multi-sheet picker, BOM UTF-8 (mở trong Excel không lỗi), tuỳ chọn xuất tất cả sheet.
+- [x] **Excel sang JSON** ([/tools/excel-sang-json](/tools/excel-sang-json)) — row 1 thành key, pretty print, copy + download.
+- [x] **JSON sang Excel** ([/tools/json-sang-excel](/tools/json-sang-excel)) — textarea hoặc file `.json`, validate array of objects.
+- [x] **Word sang Markdown** ([/tools/word-sang-md](/tools/word-sang-md)) — `mammoth` (đã có) → HTML → custom HTML→MD converter (heading, list, bảng, link, blockquote, code).
+- [x] **Markdown sang PDF** ([/tools/md-sang-pdf](/tools/md-sang-pdf)) — `marked` (mới, lazy load) → HTML → print dialog với CSS A4 + tiếng Việt.
+
+**Hạ tầng:**
+- [x] `app/lib/data/` — 4 lib: csv-to-xlsx, xlsx-to-csv, xlsx-to-json, json-to-xlsx.
+- [x] `app/lib/office/` — 2 lib: word-to-md (HTML→MD converter ~80 dòng), md-to-pdf (marked + print).
+- [x] Category mới `office-data` đặt giữa Xử lý ảnh và Bảo mật.
+- [x] Format-map: tool gắn vào planet excel + md + word + txt + pdf phù hợp.
+- [x] Package mới: `marked@^18.0.4` lazy load (chỉ load khi vào trang MD→PDF).
 
 ---
 
@@ -122,15 +141,14 @@
 ---
 
 ## 🚧 Đang làm
-- [ ] *(trống — sẵn sàng cho Phase 3)*
+- [ ] *(trống — sẵn sàng cho Phase 4)*
 
-## 📋 Sprint tiếp theo (Phase 3 — Office & Data)
-- [ ] **CSV ↔ Excel** (`/tools/csv-sang-excel`, `/tools/excel-sang-csv`) — dùng `xlsx` đã có
-- [ ] **Excel ↔ JSON**
-- [ ] **Word → Markdown** — `mammoth` đã có
-- [ ] **Markdown → PDF / Word**
-- [ ] **PDF → Markdown nâng cao** (heading detection thông minh hơn, table extraction)
-- [ ] **Ghép nhiều ảnh thành 1 (collage)** — leftover từ Phase 2, scope nhỏ
+## 📋 Sprint tiếp theo (Phase 4 — QR, mã vạch & media)
+- [ ] **QR Code tạo + đọc** — `qrcode` + `jsqr` (~50KB) — viral cao
+- [ ] **Mã vạch** — `bwip-js` cho giáo viên in nhãn
+- [ ] **MP4 → MP3 / GIF** — `ffmpeg.wasm` lazy load (nặng nhưng cache tốt)
+- [ ] **Đếm từ / phân tích tài liệu** — `pdfjs-dist` + thống kê
+- [ ] **Markdown → Word** (leftover Phase 3) — `mammoth` không hỗ trợ write, cần parser MD → docx tự viết hoặc thư viện
 
 ## 🚫 Blocker / Câu hỏi mở
 - [ ] ⚠️ **Favicon & OG image** riêng cho PDF Việt — **bắt buộc trước khi marketing rộng** (hiện dùng favicon Next.js mặc định, OG image trống)
@@ -157,6 +175,7 @@
 | 04/06/2026 | **v0.6.1** | **Click quả cầu mở FormatModal**: lọc tool theo định dạng (PDF/WORD/EXCEL/...), createPortal + ESC + click outside để đóng. **Deploy production** thay code Phase A — pdf.giapkhampha.me LIVE. Backup `archive/phase-a-2026-05-02`. |
 | 04/06/2026 | **v0.7.0** | **Phase 1 — Tiện ích tiếng Việt LIVE**: bỏ dấu (3 chế độ), đếm ký tự (thay cho "đổi số ra chữ" theo yêu cầu Ba Maya), VNI→Unicode beta, lịch âm-dương (thuật toán Hồ Ngọc Đức + Can Chi). Click TXT planet trên trang chủ giờ hiện 4 tool ready. |
 | 04/06/2026 | **v0.8.0** | **Phase 2 — Xử lý ảnh LIVE**: HEIC→JPG (heic2any lazy load), Resize ảnh (Canvas + giữ tỉ lệ), Nén ảnh (slider quality), Ảnh→WebP (giảm ~30%). Thêm category mới "Xử lý ảnh 📷". 25 tool ready. |
+| 04/06/2026 | **v0.9.0** | **Phase 3 — Office & Dữ liệu LIVE**: CSV↔Excel, Excel↔JSON, Word→Markdown (mammoth + HTML→MD converter tự viết), Markdown→PDF (marked + print). Thêm category "Office & Dữ liệu 📊". 31 tool ready. |
 
 ---
 
