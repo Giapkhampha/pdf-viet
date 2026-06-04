@@ -20,6 +20,7 @@ export const CATEGORIES = [
   { key: "convert-to-pdf",   title: "Chuyển sang PDF",          desc: "Từ Word/Excel/PowerPoint/Ảnh sang PDF" },
   { key: "convert-from-pdf", title: "Chuyển PDF sang định dạng khác", desc: "PDF sang Word/Excel/Markdown/Ảnh" },
   { key: "edit-pdf",         title: "Chỉnh sửa PDF",            desc: "Ghép, tách, xoay, nén, watermark..." },
+  { key: "image-tools",      title: "Xử lý ảnh 📷",              desc: "HEIC→JPG, resize, nén, chuyển sang WebP" },
   { key: "security",         title: "Bảo mật PDF",              desc: "Đặt và gỡ mật khẩu, làm phẳng" },
   { key: "ai-tools",         title: "Công cụ cho AI & OCR",     desc: "Trích xuất text cho ChatGPT, Claude, Gemini" },
   { key: "vietnamese",       title: "Tiện ích tiếng Việt 🌱",    desc: "Bảng mã VNI, bỏ dấu, đếm ký tự, lịch âm-dương" },
@@ -173,6 +174,36 @@ export const tools = [
     icon: "✍️", accent: "purple", category: "edit-pdf",
     accept: "application/pdf", multiple: false, status: "ready",
     handler: "signPdf", options: ["signature"],
+  },
+
+  // ── Xử lý ảnh ────────────────────────────────────────────────────────────
+  {
+    slug: "heic-sang-jpg",
+    title: "HEIC sang JPG",
+    desc: "Chuyển ảnh HEIC/HEIF từ iPhone sang JPG dùng được trên Windows, web.",
+    icon: "📷", accent: "pink", category: "image-tools",
+    accept: ".heic,.heif", multiple: true, status: "ready",
+  },
+  {
+    slug: "resize-anh",
+    title: "Resize ảnh",
+    desc: "Đổi kích thước ảnh JPG, PNG, WebP theo px hoặc %, giữ tỉ lệ tự động.",
+    icon: "📐", accent: "cyan", category: "image-tools",
+    accept: "image/*", multiple: false, status: "ready",
+  },
+  {
+    slug: "nen-anh",
+    title: "Nén ảnh",
+    desc: "Giảm dung lượng ảnh JPG/PNG/WebP — tuỳ chỉnh chất lượng 1-100%.",
+    icon: "🗜️", accent: "indigo", category: "image-tools",
+    accept: "image/jpeg,image/png,image/webp", multiple: false, status: "ready",
+  },
+  {
+    slug: "anh-sang-webp",
+    title: "Ảnh sang WebP",
+    desc: "Chuyển JPG, PNG sang WebP để giảm dung lượng ~25-50% mà gần như không mất chất lượng.",
+    icon: "🌐", accent: "violet", category: "image-tools",
+    accept: "image/jpeg,image/png", multiple: false, status: "ready",
   },
 
   // ── Bảo mật ──────────────────────────────────────────────────────────────

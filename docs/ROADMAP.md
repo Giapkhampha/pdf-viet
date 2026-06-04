@@ -40,21 +40,16 @@ Xem chi tiết trong `STATUS.md`. Tóm tắt: thống nhất 22 tool về 1 regi
 
 ---
 
-## 🚀 Phase 2 — Mở rộng nhóm Ảnh (target ba mẹ iPhone)
+## ✅ Phase 2 — Xử lý ảnh (XONG 04/06/2026, v0.8.0)
 
-**Vì sao:** Ba mẹ Việt dùng iPhone gửi ảnh tài liệu cho con/giáo viên rất nhiều — HEIC khó dùng trên Windows/web. Đây là pain point thật.
+**Đã ship:**
+- [x] **HEIC/HEIF → JPG** ([/tools/heic-sang-jpg](/tools/heic-sang-jpg)) — `heic2any` lazy load WebAssembly, batch convert, 3 preset chất lượng.
+- [x] **Resize ảnh** ([/tools/resize-anh](/tools/resize-anh)) — Canvas API, 0 deps. Giữ tỉ lệ tự động, preset 75/50/25%.
+- [x] **Nén ảnh** ([/tools/nen-anh](/tools/nen-anh)) — slider quality 10-100%, preview before/after.
+- [x] **Ảnh → WebP** ([/tools/anh-sang-webp](/tools/anh-sang-webp)) — giảm ~25-50% so với JPG/PNG.
 
-- [ ] **HEIC/HEIF → JPG** (`/tools/heic-sang-jpg`)
-  - Cần cài `heic2any` (~200KB) — xin Ba Maya duyệt
-  - Batch convert nhiều ảnh, có ZIP output
-- [ ] **Resize ảnh** (`/tools/resize-anh`)
-  - Tự viết bằng Canvas API (0 deps mới) HOẶC `browser-image-compression` (~30KB)
-  - Preset: 50%, 25%, custom px/percentage
-- [ ] **Nén ảnh** (`/tools/nen-anh`)
-  - Canvas re-encode với quality tuỳ chỉnh
-  - Preview so sánh before/after
-- [ ] **Ảnh → WebP** (`/tools/anh-sang-webp`) — giảm dung lượng trung bình 50%
-- [ ] **Ghép nhiều ảnh thành 1 (collage)** — grid 2x2, 3x3, horizontal/vertical
+**Để Phase 3 hoặc sau:**
+- [ ] Ghép nhiều ảnh thành 1 (collage) — grid 2x2, 3x3, horizontal/vertical
 
 ---
 
