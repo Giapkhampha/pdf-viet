@@ -3,6 +3,7 @@
 import { useState, useRef, useCallback } from "react";
 import { mergePdfs, countPdfPages } from "@/app/lib/pdf-merge";
 import { parsePageRanges } from "@/app/lib/parse-page-ranges";
+import ToolLayout from "@/app/components/ToolLayout";
 
 const MAX_FILE_SIZE_MB = 100;
 
@@ -159,22 +160,12 @@ export default function GhepPdfPage() {
   };
 
   return (
-    <main className="min-h-screen bg-neutral-950 text-neutral-100">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="mb-8">
-          <div className="flex items-center gap-3 mb-3">
-            <span className="text-4xl" aria-hidden="true">🧩</span>
-            <h1 className="text-3xl sm:text-4xl font-bold tracking-tight">Ghép PDF</h1>
-          </div>
-          <p className="text-neutral-400 text-base sm:text-lg">
-            Ghép nhiều file PDF thành 1 file duy nhất. Bạn có thể chọn trang cụ thể của
-            từng file (ví dụ: chỉ lấy trang 1-3 của file A và toàn bộ file B).
-          </p>
-          <p className="text-emerald-400 text-sm mt-2">
-            ✨ Xử lý hoàn toàn trên trình duyệt — file của bạn không upload lên server.
-          </p>
-        </div>
-
+    <ToolLayout
+      title="Ghép PDF"
+      icon="🧩"
+      desc="Ghép nhiều file PDF thành 1 file duy nhất. Bạn có thể chọn trang cụ thể của từng file (ví dụ: chỉ lấy trang 1-3 của file A và toàn bộ file B)."
+    >
+      <div className="max-w-3xl">
         <div
           onDragOver={(e) => {
             e.preventDefault();
@@ -388,6 +379,6 @@ export default function GhepPdfPage() {
           </div>
         )}
       </div>
-    </main>
+    </ToolLayout>
   );
 }
