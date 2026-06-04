@@ -4,10 +4,34 @@
 > Đọc file này đầu mỗi phiên dài để biết chính xác đang ở đâu.
 
 ## Cập nhật lần cuối
-**03/06/2026** — Phase 0 (dọn nhà): tái cấu trúc thành "siêu app chuyển đổi", thống nhất 22 tool trong registry duy nhất.
+**04/06/2026** — Phase 1 — Tiện ích tiếng Việt LIVE (4 tool: bỏ dấu, đếm ký tự, VNI→Unicode, lịch âm-dương).
 
 ## Phiên bản hiện tại
-`v0.5.0` — **Phase 0 hoàn tất**. Trang chủ dark theme + nhóm tool theo category, dynamic route `/tools/[slug]`, redirect 308 cho link cũ.
+`v0.7.0` — **Phase 1 hoàn tất**. 21 tool đã chạy được (17 PDF + 4 tiếng Việt). Click TXT planet trên trang chủ giờ thấy 4 tool ready thay vì stub.
+
+---
+
+## 🌱 Phase 1 — Tiện ích tiếng Việt (XONG 04/06/2026, v0.7.0)
+> USP rõ nhất của app: không competitor + 0 package mới. Tool text-only nên UX khác PDF tool — dùng textarea + real-time output thay vì dropzone.
+
+- [x] **Bỏ dấu tiếng Việt** ([/tools/bo-dau-tieng-viet](/tools/bo-dau-tieng-viet)) — `lib/vietnamese/remove-diacritics.js`. 3 chế độ: bỏ dấu thường, URL slug, tên file an toàn. Real-time output.
+- [x] **Đếm ký tự** ([/tools/dem-ky-tu](/tools/dem-ky-tu)) — `lib/vietnamese/count-chars.js`. Đếm ký tự (kể cả emoji), từ, dòng, đoạn, câu, ước lượng thời gian đọc 200 từ/phút, kích thước UTF-8, top 5 ký tự xuất hiện nhiều nhất. **Thay cho "Đổi số ra chữ"** theo yêu cầu Ba Maya.
+- [x] **VNI → Unicode** ([/tools/chuyen-vni-unicode](/tools/chuyen-vni-unicode)) — `lib/vietnamese/vni-to-unicode.js`. Chuyển keystroke "Tie61ng Vie65t" → "Tiếng Việt". Bảng quy tắc collapsible + 4 ví dụ click-to-try. **Phiên bản beta**: chỉ keystroke cơ bản, đặt dấu trên ơ/ư phức tạp có thể lệch.
+- [x] **Lịch âm ↔ dương** ([/tools/lich-am-duong](/tools/lich-am-duong)) — `lib/vietnamese/lunar-calendar.js`. Thuật toán Hồ Ngọc Đức (~220 dòng) port sang JS thuần. 2 chiều: dương→âm (native date picker), âm→dương (3 input + checkbox nhuận). Kèm Can Chi ngày/tháng/năm.
+
+---
+
+## 🪐 v0.6.x — Cosmic UI + Interactive Planets (XONG 04/06/2026)
+- [x] **CosmicHero** với 9 hành tinh SVG (PDF/WORD/EXCEL/PPT/JPG/PNG/HTML/MD/TXT) float quanh title trung tâm — `PlanetIcon` SVG gradient + facet + halo, 10 màu preset.
+- [x] **CosmicBackground** — gradient nebula + sao tĩnh + 5 sao twinkle nhấp nháy + 2 nebula cloud drift ngang.
+- [x] **Header dark** với `CrystalLogo` SVG kim cương + gradient text "PDF Việt"; bỏ "Bảng giá"/"Đăng nhập" theo cam kết miễn phí + không backend.
+- [x] **Click quả cầu → mở FormatModal** (v0.6.1):
+  - `app/lib/format-map.js` — 9 FORMATS + `SLUG_TO_FORMATS` + `getToolsByFormat(key)`.
+  - `FormatModal.jsx` client, `createPortal(document.body)`, ESC + click outside để đóng, lock body scroll, animation fade+scale.
+  - Grid card 2 cột, link tới `/tools/<slug>`, stub hiển thị "Sắp có".
+  - Tooltip "Bấm để xem công cụ" khi hover planet (discoverability).
+- [x] **Animation `prefers-reduced-motion`** — disable float/twinkle/glow khi user bật.
+- [x] **Production deploy** 04/06/2026 — https://pdf.giapkhampha.me thay code Phase A. Branch backup `archive/phase-a-2026-05-02` giữ history nếu cần restore.
 
 ---
 
@@ -72,23 +96,24 @@
 **AI & OCR (1):**
 - [x] [OCR tiếng Việt](/tools/ocr-tieng-viet) — `tesseract.js` `vie+eng`, ~20MB model lần đầu
 
-### Stub đang đợi (5 tool)
-- [ ] PowerPoint → PDF — chưa có thư viện browser-native
-- [ ] Đặt/Gỡ mật khẩu PDF — như trên
-- [ ] **Tiện ích tiếng Việt 🌱 ×4** — VNI/TCVN3 → Unicode, Bỏ dấu, Số ra chữ, Lịch âm-dương (đẩy lên **Phase 1**, xem ROADMAP)
+**Tiện ích tiếng Việt 🌱 (4):** xem section "Phase 1" ở trên — bỏ dấu, đếm ký tự, VNI→Unicode, lịch âm-dương.
+
+### Stub đang đợi (3 tool)
+- [ ] PowerPoint → PDF — chưa có thư viện browser-native ổn định
+- [ ] Đặt mật khẩu PDF — cần khảo sát thư viện
+- [ ] Gỡ mật khẩu PDF — cần khảo sát thư viện
 
 ---
 
 ## 🚧 Đang làm
-- [ ] *(trống — chuẩn bị khởi động Phase 1: Tiện ích tiếng Việt)*
+- [ ] *(trống — sẵn sàng cho Phase 2)*
 
-## 📋 Sprint tiếp theo (Phase 1 — Tiện ích tiếng Việt)
-> Đã đẩy lên thay vì để Phase 2 — đây là USP rõ nhất, 0 package mới, không competitor.
-- [ ] **Chuyển VNI/TCVN3 → Unicode** — bảng map có sẵn, copy paste vào `lib/vietnamese/vni-to-unicode.js`
-- [ ] **Bỏ dấu tiếng Việt** — regex thuần, hàm ngắn
-- [ ] **Đổi số ra chữ tiếng Việt** — thuật toán có sẵn, ~100 dòng
-- [ ] **Đổi lịch âm ↔ dương** — thuật toán Hồ Ngọc Đức, ~150 dòng
-- [ ] **Nhánh `lib/vietnamese/`** — tổ chức gọn cho các tool text-only (không cần ToolDropzone)
+## 📋 Sprint tiếp theo (Phase 2 — Nhóm Ảnh)
+> Target ba mẹ iPhone gửi ảnh tài liệu cho con/giáo viên.
+- [ ] **HEIC/HEIF → JPG** — cần xin duyệt cài `heic2any` (~200KB)
+- [ ] **Resize ảnh** — Canvas API thuần (0 deps mới)
+- [ ] **Nén ảnh** — Canvas re-encode quality tuỳ chỉnh
+- [ ] **Ảnh → WebP** — giảm dung lượng ~50%
 
 ## 🚫 Blocker / Câu hỏi mở
 - [ ] ⚠️ **Favicon & OG image** riêng cho PDF Việt — **bắt buộc trước khi marketing rộng** (hiện dùng favicon Next.js mặc định, OG image trống)
@@ -111,6 +136,9 @@
 | 02/05/2026 | v0.4.2 | Domain chính thức pdf.giapkhampha.me + Cloudflare DNS + email forward |
 | 02/05/2026 | v0.4.3 | Hot fix Footer + EcosystemBadge: đổi link hệ sinh thái → giapkhampha.me |
 | 03/06/2026 | **v0.5.0** | **Phase 0 dọn nhà**: tái cấu trúc 17 tool về `/tools/[slug]` + registry + dark theme đồng nhất, đẩy nhóm Tiện ích tiếng Việt lên Phase 1 |
+| 04/06/2026 | **v0.6.0** | **Cosmic UI**: CosmicHero 9 hành tinh SVG float, CosmicBackground nebula+sao, CrystalLogo, Header redesign. Deploy preview Vercel — PR #1 merged. |
+| 04/06/2026 | **v0.6.1** | **Click quả cầu mở FormatModal**: lọc tool theo định dạng (PDF/WORD/EXCEL/...), createPortal + ESC + click outside để đóng. **Deploy production** thay code Phase A — pdf.giapkhampha.me LIVE. Backup `archive/phase-a-2026-05-02`. |
+| 04/06/2026 | **v0.7.0** | **Phase 1 — Tiện ích tiếng Việt LIVE**: bỏ dấu (3 chế độ), đếm ký tự (thay cho "đổi số ra chữ" theo yêu cầu Ba Maya), VNI→Unicode beta, lịch âm-dương (thuật toán Hồ Ngọc Đức + Can Chi). Click TXT planet trên trang chủ giờ hiện 4 tool ready. |
 
 ---
 
