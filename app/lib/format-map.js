@@ -62,6 +62,14 @@ const SLUG_TO_FORMATS = {
   "nen-anh":         ["jpg", "png"],
   "anh-sang-webp":   ["jpg", "png"],
 
+  // Office & Data — Phase 3
+  "csv-sang-excel":  ["excel", "txt"],
+  "excel-sang-csv":  ["excel", "txt"],
+  "excel-sang-json": ["excel", "txt"],
+  "json-sang-excel": ["excel", "txt"],
+  "word-sang-md":    ["word", "md"],
+  "md-sang-pdf":     ["md", "pdf"],
+
   // Tiện ích tiếng Việt — text-only nên gom vào TXT
   "chuyen-vni-unicode": ["txt"],
   "bo-dau-tieng-viet":  ["txt"],

@@ -53,7 +53,21 @@ Xem chi tiết trong `STATUS.md`. Tóm tắt: thống nhất 22 tool về 1 regi
 
 ---
 
-## 📊 Phase 3 — Office & Data interchange
+## ✅ Phase 3 — Office & Data interchange (XONG 04/06/2026, v0.9.0)
+
+**Đã ship 6 tool:**
+- [x] CSV → Excel, Excel → CSV (multi-sheet, BOM UTF-8)
+- [x] Excel → JSON, JSON → Excel (validate array of objects)
+- [x] Word → Markdown (`mammoth` + HTML→MD converter)
+- [x] Markdown → PDF (`marked` + print dialog với CSS A4 đẹp)
+
+**Để phase sau:**
+- [ ] Markdown → Word — cần parser MD → docx phức tạp, defer
+- [ ] PDF → Markdown nâng cao — heading detection thông minh hơn, table extraction
+
+---
+
+## 🗄️ Phase 3 — Office & Data (chi tiết gốc, đã ship)
 
 - [ ] **CSV ↔ Excel** (`/tools/csv-sang-excel`, `/tools/excel-sang-csv`) — dùng `xlsx` đã có
 - [ ] **Excel ↔ JSON** — flatten + nested
