@@ -1,72 +1,110 @@
 # ROADMAP.md — Kế hoạch tính năng
 
 > Roadmap không phải lời hứa — là **hướng đi**. Có thể đảo thứ tự nếu user feedback yêu cầu khác.
+>
+> **Định vị mới (v0.5.0):** PDF Việt → *siêu app chuyển đổi file tiếng Việt*. Không chỉ PDF.
 
 ---
 
-## 🎯 Phase 1 — MVP (mục tiêu: ra mắt được)
-**Tiêu chí xong:** có 3-4 tool cơ bản dùng được, branding kết nối hệ sinh thái rõ ràng, deploy được lên Vercel.
-
-- [ ] **Layout chung:** Header (logo + nav) + Footer (kết nối GIAP KHAMPHA)
-- [ ] **Trang chủ:** giới thiệu, list tool, CTA "Khám phá hệ sinh thái"
-- [ ] **Tool 1: Ghép PDF**
-  - Drag & drop nhiều file PDF
-  - Kéo thả để sắp xếp lại thứ tự
-  - Export 1 file PDF duy nhất
-  - Dùng `pdf-lib`
-- [ ] **Tool 2: Tách PDF**
-  - Tách theo trang hoặc khoảng trang (ví dụ: "1-3, 5, 7-10")
-  - Export nhiều file PDF (zip nếu > 1)
-  - Dùng `pdf-lib`
-- [ ] **Tool 3: PDF → Word**
-  - `pdfjs-dist` extract text từng trang
-  - `docx` tạo file `.docx`
-  - Cảnh báo: format có thể không 100% giống bản gốc
-- [x] **Tool: PDF → Markdown** ⭐ (Phase A xong)
-  - Input: PDF có text layer → Output: file `.md`
-  - Dùng `lib/pdf-extract.js` (shared) + `lib/format-markdown.js`
-  - Phase B (sau): heuristic heading detection, bold/italic, table
-  - Phase C (sau): OCR cho PDF scan tiếng Việt
-- [ ] **Trang Giới Thiệu / Về Ba Maya** — CTA dẫn về giapkhampha.me
-- [x] **Deploy Vercel** — https://pdf.giapkhampha.me (subdomain chính thức, v0.4.2)
+## ✅ Phase 0 — Dọn nhà (XONG 03/06/2026, v0.5.0)
+Xem chi tiết trong `STATUS.md`. Tóm tắt: thống nhất 22 tool về 1 registry, dark theme đồng nhất, dynamic route `/tools/[slug]`, redirect 308 cho link cũ.
 
 ---
 
-## 🚀 Phase 2 — Mở rộng (mục tiêu: thật sự hữu dụng)
-**Tiêu chí xong:** đủ tool để cover 80% nhu cầu xử lý PDF của ba mẹ Việt.
-
-- [ ] **OCR PDF tiếng Việt** ⭐ (USP lớn nhất)
-  - `tesseract.js` với `lang: "vie"`
-  - Progress bar rõ ràng (OCR rất chậm với file lớn)
-  - Cache language data sau lần đầu tải (~10MB)
-  - Export text hoặc PDF có lớp text (searchable PDF)
-- [ ] **Word → PDF** — `mammoth` đọc DOCX → render → `jspdf` export
-- [ ] **Excel → PDF** — preview bảng → export PDF
-- [ ] **Nén PDF** — giảm dung lượng (qua re-render hình ảnh ở DPI thấp hơn)
-- [ ] **Watermark PDF** — text hoặc ảnh, chọn vị trí (góc, giữa, lặp lại)
-- [ ] **Xoay & sắp xếp trang PDF** — UI trực quan kéo thả thumbnail từng trang
-- [ ] **Trang Tutorial** — gif + text Việt cho mỗi tool
+## ✅ Phase MVP — đã giao trước Phase 0
+17 tool ready trên production: ghép/tách/nén/xoay/watermark PDF, đánh số trang, xoá/trích trang, ký PDF, làm phẳng, PDF↔Word↔Excel↔Markdown↔Ảnh, Word/Excel/HTML→PDF, OCR tiếng Việt. Xem `STATUS.md` cho danh sách đầy đủ.
 
 ---
 
-## 🌟 Phase 3 — Tối ưu & cộng đồng
-**Tiêu chí xong:** PDF Việt là nơi ba mẹ Việt nghĩ tới đầu tiên khi cần xử lý PDF.
+## 🎯 Phase 1 — Tiện ích tiếng Việt ⭐ USP (đang khởi động)
 
-- [ ] **Đa ngôn ngữ:** thêm EN (target: ba mẹ Việt ở nước ngoài)
-- [ ] **Lưu lịch sử cục bộ** (IndexedDB, không server) — user xem lại file đã xử lý
+**Vì sao ưu tiên cao nhất:**
+- 0 package mới — toàn bộ thuật toán là JS thuần ngắn (~50-150 dòng/tool)
+- **Không có competitor** ở mảng này (ilovepdf, smallpdf không có)
+- Cực mạnh cho SEO/content marketing: "công cụ duy nhất chuyển VNI sang Unicode online không cần upload"
+- Demo 30 giây, viral cao với target user Việt Nam
+
+**Mục tiêu xong:** PDF Việt trở thành nơi user Việt nghĩ tới khi cần xử lý text tiếng Việt.
+
+- [ ] **Chuyển bảng mã VNI/TCVN3/VIQR → Unicode** (`/tools/chuyen-vni-unicode`)
+  - Bảng map có sẵn (open source) — copy vào `lib/vietnamese/encoding-maps.js`
+  - UI: textarea input → textarea output, có nút detect bảng mã tự động
+- [ ] **Bỏ dấu tiếng Việt** (`/tools/bo-dau-tieng-viet`)
+  - Regex thuần, hàm ngắn 15 dòng
+  - UI: textarea + option giữ/bỏ khoảng trắng, chuyển kebab/snake/camel
+- [ ] **Đổi số ra chữ tiếng Việt** (`/tools/so-sang-chu`)
+  - Dùng cho hợp đồng, hoá đơn — ví dụ: `1.500.000` → "Một triệu năm trăm nghìn đồng"
+  - Hỗ trợ số âm, số thập phân, đơn vị (đồng/USD/...)
+- [ ] **Đổi lịch âm ↔ dương** (`/tools/lich-am-duong`)
+  - Thuật toán Hồ Ngọc Đức (~150 dòng JS, MIT)
+  - UI: 2 date picker đồng bộ + hiển thị Can Chi, ngày trong năm âm
+
+**Hạ tầng đi kèm:**
+- [ ] Thư mục `app/lib/vietnamese/` — gom các tool text-only
+- [ ] Variant ToolLayout dạng "text input" (không cần ToolDropzone) — đơn giản hơn
+
+---
+
+## 🚀 Phase 2 — Mở rộng nhóm Ảnh (target ba mẹ iPhone)
+
+**Vì sao:** Ba mẹ Việt dùng iPhone gửi ảnh tài liệu cho con/giáo viên rất nhiều — HEIC khó dùng trên Windows/web. Đây là pain point thật.
+
+- [ ] **HEIC/HEIF → JPG** (`/tools/heic-sang-jpg`)
+  - Cần cài `heic2any` (~200KB) — xin Ba Maya duyệt
+  - Batch convert nhiều ảnh, có ZIP output
+- [ ] **Resize ảnh** (`/tools/resize-anh`)
+  - Tự viết bằng Canvas API (0 deps mới) HOẶC `browser-image-compression` (~30KB)
+  - Preset: 50%, 25%, custom px/percentage
+- [ ] **Nén ảnh** (`/tools/nen-anh`)
+  - Canvas re-encode với quality tuỳ chỉnh
+  - Preview so sánh before/after
+- [ ] **Ảnh → WebP** (`/tools/anh-sang-webp`) — giảm dung lượng trung bình 50%
+- [ ] **Ghép nhiều ảnh thành 1 (collage)** — grid 2x2, 3x3, horizontal/vertical
+
+---
+
+## 📊 Phase 3 — Office & Data interchange
+
+- [ ] **CSV ↔ Excel** (`/tools/csv-sang-excel`, `/tools/excel-sang-csv`) — dùng `xlsx` đã có
+- [ ] **Excel ↔ JSON** — flatten + nested
+- [ ] **Word → Markdown** (`/tools/word-sang-md`) — dùng `mammoth` đã có + converter MD nội bộ
+- [ ] **Markdown → PDF** (`/tools/md-sang-pdf`) — render MD → print
+- [ ] **Markdown → Word** — `docx` đã có
+- [ ] **PDF → Markdown nâng cao** (Phase B của tool đã có) — heading detection thông minh hơn, table extraction
+- [ ] **Compare 2 PDF** — diff text, highlight phần khác
+
+---
+
+## 🔍 Phase 4 — QR, mã vạch & media
+
+- [ ] **QR Code tạo + đọc** (`/tools/qr-code`) — `qrcode` + `jsqr` (~50KB) — viral cao
+- [ ] **Mã vạch** — `bwip-js` cho giáo viên in nhãn
+- [ ] **MP4 → MP3** — `ffmpeg.wasm` lazy load (~30MB nhưng cache rất tốt)
+- [ ] **MP4 → GIF** — cùng `ffmpeg.wasm`
+- [ ] **Cắt audio/video đơn giản**
+- [ ] **Đếm từ / phân tích tài liệu** — `pdfjs-dist` + thống kê
+
+---
+
+## 🌟 Phase 5 — Quality of life & cộng đồng
+
+- [ ] **PWA + offline mode** — sau lần truy cập đầu dùng được không mạng
+- [ ] **Lịch sử cục bộ** (IndexedDB) — user xem lại file đã xử lý
 - [ ] **Plausible/Umami analytics** — privacy-friendly, không Google
-- [ ] **PWA:** dùng được offline sau lần truy cập đầu
-- [ ] **Cross-promote** với các sản phẩm khác trong hệ sinh thái (banner xoay vòng)
-- [ ] **Chia sẻ Tool URL với param** — ví dụ `?files=2&action=merge` để share preset
+- [ ] **Đa ngôn ngữ (EN)** — target ba mẹ Việt ở nước ngoài
+- [ ] **Cross-promote** trong hệ sinh thái GIAP KHAMPHA (banner xoay vòng)
+- [ ] **Chia sẻ tool URL với preset** — `?action=merge&pages=1-3`
 - [ ] **Tích hợp Bé Ngoan Kawaii** — "Lưu chứng chỉ con vào Bé Ngoan Kawaii"
 
 ---
 
 ## 💡 Ý tưởng tương lai (chưa cam kết, chờ feedback)
-- AI tóm tắt PDF tiếng Việt (gọi API, có cảnh báo upload — vi phạm nguyên tắc privacy nên cần bật/tắt rõ ràng)
-- Tạo PDF từ template Việt (đơn xin nghỉ học, biên bản họp phụ huynh, …)
+- AI tóm tắt PDF tiếng Việt (gọi API, cảnh báo upload — cần bật/tắt rõ ràng)
+- Tạo PDF từ template Việt (đơn xin nghỉ học, biên bản họp phụ huynh)
 - Dịch PDF Anh → Việt giữ format
-- "Trợ lý AI giải bài tập từ PDF" — chụp bài → giải
+- "Trợ lý AI giải bài tập từ PDF"
+- Đặt/Gỡ mật khẩu PDF (đang stub) — cần thư viện browser ổn định
+- PowerPoint → PDF — cần thư viện browser ổn định
 
 ---
 

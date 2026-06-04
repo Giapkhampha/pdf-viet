@@ -4,68 +4,98 @@
 > Đọc file này đầu mỗi phiên dài để biết chính xác đang ở đâu.
 
 ## Cập nhật lần cuối
-**02/05/2026** — Hot fix Footer: đổi link hệ sinh thái sang domain chính thức.
+**03/06/2026** — Phase 0 (dọn nhà): tái cấu trúc thành "siêu app chuyển đổi", thống nhất 22 tool trong registry duy nhất.
 
 ## Phiên bản hiện tại
-`v0.4.3` — Footer + EcosystemBadge dùng URL giapkhampha.me thay vì giapkhamphame.vercel.app.
+`v0.5.0` — **Phase 0 hoàn tất**. Trang chủ dark theme + nhóm tool theo category, dynamic route `/tools/[slug]`, redirect 308 cho link cũ.
 
 ---
 
-## ✅ Đã làm xong
+## 🏗️ Phase 0 — Dọn nhà (XONG 03/06/2026)
+- [x] **Tools registry tập trung** (`app/lib/tools-registry.js`) — 22 tool có slug tiếng Việt, category, status; nguồn duy nhất cho trang chủ, route, sitemap.
+- [x] **Tách 17 lib** từ `/tool/[id]/page.js` 818 dòng → 17 file `app/lib/*.js` (mỗi handler 1 file ngắn ~30-60 dòng).
+- [x] **Component dùng chung dark theme:** `ToolLayout`, `ToolDropzone` (controlled, có drag-reorder + up/down + xoá), `SignaturePad`, `EcosystemBadge`, `Header`.
+- [x] **Trang chủ rebuild** — dark theme, nhóm tool theo 6 category (Chuyển sang PDF, Chuyển từ PDF, Chỉnh sửa, Bảo mật, AI/OCR, **Tiện ích tiếng Việt** 🌱), hiển thị "Sắp có" cho stub.
+- [x] **Header chung** trong root layout — logo PDF Việt + badge "Miễn phí 100%" + link GIAP KHAMPHA.
+- [x] **Dynamic route** `app/tools/[slug]/page.jsx` — render đồng nhất 17 tool đơn giản qua `ToolLayout` + `ToolDropzone` + dispatch handler.
+- [x] **Refactor 2 tool static** (`ghep-pdf`, `pdf-sang-md`) wrap bằng `ToolLayout` — nhất quán breadcrumb + badge.
+- [x] **Redirect 308** trong `next.config.mjs` — `/tool/<old-id>` → `/tools/<vietnamese-slug>` cho mọi slug cũ (giữ SEO + link đã share).
+- [x] **Xoá** `/tool/[id]` cũ (file 818 dòng).
+
+---
+
+## ✅ Đã làm xong (tích luỹ)
+
+### Hạ tầng & branding
 - [x] Khởi tạo Next.js 16 + React 19 + Tailwind v4
-- [x] Cài đặt dependencies xử lý PDF/Word/Excel/OCR (`pdf-lib`, `pdfjs-dist`, `jspdf`, `mammoth`, `docx`, `xlsx`, `tesseract.js`)
+- [x] Cài đặt deps xử lý file (`pdf-lib`, `pdfjs-dist`, `jspdf`, `mammoth`, `docx`, `xlsx`, `tesseract.js`)
 - [x] Cấu hình ESLint, PostCSS, jsconfig (alias `@/*`)
-- [x] Tạo bộ tài liệu dự án (CLAUDE.md + docs/)
-- [x] Footer kết nối hệ sinh thái GIAP KHAMPHA (`app/components/Footer.jsx`)
-- [x] Metadata SEO đầy đủ (OG, Twitter Card) + favicon SVG tạm
-- [x] **Tool đầu tiên: PDF → Markdown** (Phase A — MVP)
-  - [x] Component reusable: `FileDropzone.jsx`
-  - [x] Logic shared: `lib/pdf-extract.js` (pdfjs-dist, tái dùng cho tool khác)
-  - [x] Logic shared: `lib/format-markdown.js` (group lines/paragraphs, escape MD)
-  - [x] Trang `/tools/pdf-sang-md` — drag & drop, options, preview, download, copy
-  - [x] Worker `pdf.worker.min.mjs` copy vào `public/`
-  - [x] Detect PDF scan → cảnh báo thân thiện
-- [x] **Tool thứ hai: Ghép PDF** (Phase A — MVP)
-  - [x] Drag & drop nhiều file PDF
-  - [x] Sắp xếp bằng kéo thả + nút ↑↓ (mobile-friendly)
-  - [x] Tùy chọn trang từng file với cú pháp `1-3, 5, 7-10`
-  - [x] Logic shared: `lib/pdf-merge.js` (pdf-lib)
-  - [x] Logic shared: `lib/parse-page-ranges.js` (đã test 14 case)
-  - [x] Validate file PDF có mật khẩu, file hỏng — error tiếng Việt thân thiện
-- [x] **Fix v0.4.1:** Xóa API route `/api/process` vi phạm cam kết privacy
-- [x] **Fix v0.4.1:** Đồng nhất workerSrc pdfjs-dist sang `/pdf.worker.min.mjs`
-- [x] **Setup domain chính thức (v0.4.2)**
-  - [x] Mua giapkhampha.me ở Tenten (1 năm — 02/05/2026 đến 02/05/2027)
-  - [x] Đăng ký Cloudflare account, dùng gói Free
-  - [x] Đổi nameserver Tenten → Cloudflare (delilah.ns.cloudflare.com, tate.ns.cloudflare.com)
-  - [x] Setup 3 DNS records: A @, CNAME www, CNAME pdf (đều DNS only)
-  - [x] Add giapkhampha.me vào Vercel project giapkhamphame
-  - [x] Add pdf.giapkhampha.me vào Vercel project pdf-viet
-  - [x] SSL/HTTPS active qua Vercel (Let's Encrypt miễn phí)
-  - [x] Redirect 308 từ pdf-viet.vercel.app → pdf.giapkhampha.me (giữ traffic cũ)
-  - [x] Email Routing trên Cloudflare: lienhe@giapkhampha.me → Gmail
-- [x] **Cleanup metadata sau setup domain (v0.4.2)**
-  - [x] app/layout.js: metadataBase, openGraph, canonical → URL mới
-  - [x] docs/CONTEXT.md: cập nhật URL hệ sinh thái và PDF Việt
-  - [x] docs/STATUS.md: ghi nhận v0.4.2
-- [x] **Hot fix Footer URL (v0.4.3)**
-  - [x] Footer.jsx: đổi 4 cột link + CTA "Khám phá hệ sinh thái" sang giapkhampha.me (9 chỗ)
-  - [x] pdf-sang-md/page.jsx: đổi link ecosystem badge sang giapkhampha.me (1 chỗ)
-  - [x] Build + lint pass, deploy Vercel thành công
+- [x] Bộ tài liệu dự án (CLAUDE.md + docs/)
+- [x] **Footer** kết nối hệ sinh thái GIAP KHAMPHA
+- [x] **Header chung dark theme** ✨ (v0.5.0)
+- [x] **Trang chủ dark theme + group theo category** ✨ (v0.5.0)
+- [x] Metadata SEO đầy đủ (OG, Twitter Card)
+- [x] **Domain chính thức** https://pdf.giapkhampha.me (Cloudflare DNS + Vercel + 308 redirect từ pdf-viet.vercel.app)
+- [x] Email forward `lienhe@giapkhampha.me` → Gmail
+
+### Tool đã chạy được (17 tool)
+> Tất cả accessible qua `/tools/<slug>`. UI dark theme đồng nhất, badge hệ sinh thái, breadcrumb.
+
+**Chuyển sang PDF (4):**
+- [x] [Word → PDF](/tools/word-sang-pdf) — `mammoth` → HTML → print dialog
+- [x] [Excel → PDF](/tools/excel-sang-pdf) — `xlsx` → HTML table → print dialog
+- [x] [HTML → PDF](/tools/html-sang-pdf) — print dialog
+- [x] [Ảnh → PDF](/tools/anh-sang-pdf) — `pdf-lib` embed JPG/PNG
+
+**Chuyển PDF sang định dạng khác (4):**
+- [x] [PDF → Markdown](/tools/pdf-sang-md) — UI custom (`lib/format-markdown.js`)
+- [x] [PDF → Word](/tools/pdf-sang-word) — `lib/pdf-structured-extract.js` + `docx`, có heading detection
+- [x] [PDF → Excel](/tools/pdf-sang-excel) — text từng dòng → row trong `.xlsx`
+- [x] [PDF → Ảnh](/tools/pdf-sang-anh) — `pdfjs-dist` render canvas → JPEG 2x scale
+
+**Chỉnh sửa PDF (8):**
+- [x] [Ghép PDF](/tools/ghep-pdf) — UI custom (drag-reorder + per-file page ranges)
+- [x] [Tách PDF](/tools/tach-pdf) — mỗi trang 1 file
+- [x] [Nén PDF](/tools/nen-pdf) — re-save với object streams
+- [x] [Xoay PDF](/tools/xoay-pdf) — 90/180/270°
+- [x] [Watermark PDF](/tools/watermark-pdf) — chéo 45°, font Helvetica (chưa hỗ trợ dấu)
+- [x] [Đánh số trang](/tools/so-trang-pdf) — "N / Tổng" giữa dưới
+- [x] [Xoá trang PDF](/tools/xoa-trang-pdf) — input "1, 3, 5-7"
+- [x] [Trích xuất trang PDF](/tools/trich-trang-pdf) — input "1, 3, 5-7"
+- [x] [Ký PDF](/tools/ky-pdf) — vẽ chữ ký canvas → nhúng PNG trang cuối
+
+**Bảo mật (1 ready / 3 trong nhóm):**
+- [x] [Làm phẳng PDF](/tools/lam-phang-pdf)
+- [ ] Đặt mật khẩu PDF (stub) — cần thư viện ngoài, ẩn "Sắp có"
+- [ ] Gỡ mật khẩu PDF (stub) — cần API native, ẩn "Sắp có"
+
+**AI & OCR (1):**
+- [x] [OCR tiếng Việt](/tools/ocr-tieng-viet) — `tesseract.js` `vie+eng`, ~20MB model lần đầu
+
+### Stub đang đợi (5 tool)
+- [ ] PowerPoint → PDF — chưa có thư viện browser-native
+- [ ] Đặt/Gỡ mật khẩu PDF — như trên
+- [ ] **Tiện ích tiếng Việt 🌱 ×4** — VNI/TCVN3 → Unicode, Bỏ dấu, Số ra chữ, Lịch âm-dương (đẩy lên **Phase 1**, xem ROADMAP)
+
+---
 
 ## 🚧 Đang làm
-- [ ] *(trống — Phase A xong)*
+- [ ] *(trống — chuẩn bị khởi động Phase 1: Tiện ích tiếng Việt)*
 
-## 📋 Đã lên lịch ngắn hạn (sprint hiện tại)
-- [ ] **Tool: PDF → Word** — dùng `lib/pdf-extract.js` có sẵn + `docx` để tạo `.docx`
-- [ ] **Header chung** — logo PDF Việt + nav tới các tool
-- [ ] **Trang chủ** nâng cấp — giới thiệu + list tool đã có
+## 📋 Sprint tiếp theo (Phase 1 — Tiện ích tiếng Việt)
+> Đã đẩy lên thay vì để Phase 2 — đây là USP rõ nhất, 0 package mới, không competitor.
+- [ ] **Chuyển VNI/TCVN3 → Unicode** — bảng map có sẵn, copy paste vào `lib/vietnamese/vni-to-unicode.js`
+- [ ] **Bỏ dấu tiếng Việt** — regex thuần, hàm ngắn
+- [ ] **Đổi số ra chữ tiếng Việt** — thuật toán có sẵn, ~100 dòng
+- [ ] **Đổi lịch âm ↔ dương** — thuật toán Hồ Ngọc Đức, ~150 dòng
+- [ ] **Nhánh `lib/vietnamese/`** — tổ chức gọn cho các tool text-only (không cần ToolDropzone)
 
 ## 🚫 Blocker / Câu hỏi mở
-- [ ] ⚠️ **Favicon & OG image** riêng cho PDF Việt — **bắt buộc trước khi marketing** (hiện dùng favicon Next.js mặc định, OG image trống)
-- [ ] Chiến lược **cache language data Tesseract** (10MB tiếng Việt) — Service Worker hay localforage?
-- [x] ~~Cấu hình **worker `pdfjs-dist`** cho Next.js 16 App Router~~ — đã giải quyết hoàn toàn (v0.4.1: nhất quán `/pdf.worker.min.mjs` ở mọi nơi)
-- [x] ~~Chưa quyết định **domain**~~ — đã xong: pdf.giapkhampha.me (v0.4.2)
+- [ ] ⚠️ **Favicon & OG image** riêng cho PDF Việt — **bắt buộc trước khi marketing rộng** (hiện dùng favicon Next.js mặc định, OG image trống)
+- [ ] Watermark + đánh số trang **chưa hỗ trợ tiếng Việt có dấu** (font Helvetica). Cần embed font Unicode (Noto/Roboto) — Phase 2.
+- [ ] Chiến lược **cache language data Tesseract** (~20MB) — Service Worker hay localforage? — chưa quyết.
+- [x] ~~Hai hệ thống tool song song (`/tool/[id]` vs `/tools/<slug>`)~~ — đã thống nhất (v0.5.0)
+- [x] ~~Trang chủ vi phạm CONTEXT.md (light theme, footer riêng)~~ — đã sửa (v0.5.0)
 
 ---
 
@@ -78,8 +108,9 @@
 | 01/05/2026 | v0.3.0 | Metadata SEO + favicon SVG + deploy preview Vercel |
 | 01/05/2026 | v0.4.0 | Ra mắt tool Ghép PDF (Phase A) — drag-drop sắp xếp, tùy chọn trang từng file |
 | 01/05/2026 | v0.4.1 | Fix critical: gỡ proxy stirling.tools, đồng nhất workerSrc pdfjs |
-| 02/05/2026 | v0.4.2 | Domain chính thức pdf.giapkhampha.me + Cloudflare DNS + email forward (Tenten + Cloudflare Free) |
-| 02/05/2026 | v0.4.3 | Hot fix Footer + EcosystemBadge: đổi toàn bộ link hệ sinh thái từ giapkhamphame.vercel.app → giapkhampha.me |
+| 02/05/2026 | v0.4.2 | Domain chính thức pdf.giapkhampha.me + Cloudflare DNS + email forward |
+| 02/05/2026 | v0.4.3 | Hot fix Footer + EcosystemBadge: đổi link hệ sinh thái → giapkhampha.me |
+| 03/06/2026 | **v0.5.0** | **Phase 0 dọn nhà**: tái cấu trúc 17 tool về `/tools/[slug]` + registry + dark theme đồng nhất, đẩy nhóm Tiện ích tiếng Việt lên Phase 1 |
 
 ---
 

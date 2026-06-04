@@ -2,6 +2,7 @@
 
 import { useState, useCallback } from "react";
 import FileDropzone from "@/app/components/FileDropzone";
+import ToolLayout from "@/app/components/ToolLayout";
 
 // Lazy-loaded so pdfjs-dist doesn't bloat the server bundle
 async function runConvert(file, options) {
@@ -142,33 +143,12 @@ export default function PdfSangMdPage() {
   const isDone = status === "done";
 
   return (
-    <div className="min-h-screen bg-neutral-950 text-neutral-100">
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16">
-
-        {/* ── Header tool ── */}
-        <div className="mb-10">
-          <div className="flex flex-wrap items-center gap-2 mb-3">
-            <h1 className="text-2xl sm:text-3xl font-bold text-neutral-100">
-              📝 PDF → Markdown
-            </h1>
-            <a
-              href="https://giapkhampha.me"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 rounded-full border border-emerald-800 bg-emerald-950/40 px-3 py-1 text-xs text-emerald-400 hover:bg-emerald-900/40 transition-colors duration-150"
-              aria-label="Một phần của hệ sinh thái GIAP KHAMPHA"
-            >
-              🌱 Hệ sinh thái GIAP KHAMPHA
-            </a>
-          </div>
-          <p className="text-neutral-400 text-sm sm:text-base leading-relaxed">
-            Chuyển PDF sang định dạng AI hiểu được — dùng với ChatGPT, Claude, Gemini.
-            <br className="hidden sm:block" />
-            Toàn bộ xử lý trên trình duyệt, file không rời máy bạn.
-          </p>
-        </div>
-
-        <div className="space-y-6">
+    <ToolLayout
+      title="PDF sang Markdown"
+      icon="📝"
+      desc="Chuyển PDF sang định dạng AI hiểu được — dùng với ChatGPT, Claude, Gemini. Toàn bộ xử lý trên trình duyệt, file không rời máy bạn."
+    >
+      <div className="space-y-6">
           {/* ── Dropzone ── */}
           <section aria-label="Chọn file PDF">
             <FileDropzone
@@ -289,17 +269,13 @@ export default function PdfSangMdPage() {
             </section>
           )}
 
-          {/* ── Footer info ── */}
-          <div className="border-t border-neutral-800 pt-5 space-y-2">
+          {/* ── Tip ── */}
+          <div className="border-t border-neutral-800 pt-5">
             <p className="text-xs text-neutral-500">
               💡 Mẹo: file <code className="text-neutral-400">.md</code> này có thể paste thẳng vào ChatGPT, Claude hay Notion.
             </p>
-            <p className="text-xs text-neutral-600">
-              🔒 File của bạn được xử lý hoàn toàn trên trình duyệt — không upload lên server.
-            </p>
           </div>
-        </div>
       </div>
-    </div>
+    </ToolLayout>
   );
 }

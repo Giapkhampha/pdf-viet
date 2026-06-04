@@ -1,120 +1,119 @@
 import Link from "next/link";
+import { CATEGORIES, getToolsByCategory } from "@/app/lib/tools-registry";
+import CosmicHero from "@/app/components/CosmicHero";
 
-const tools = [
-  // Chuyển đổi sang PDF
-  { id: "word-to-pdf", title: "Word sang PDF", desc: "Chuyển file .docx, .doc thành PDF", icon: "📄", color: "blue" },
-  { id: "excel-to-pdf", title: "Excel sang PDF", desc: "Chuyển bảng tính Excel thành PDF", icon: "📊", color: "green" },
-  { id: "ppt-to-pdf", title: "PowerPoint sang PDF", desc: "Chuyển bài thuyết trình thành PDF", icon: "📑", color: "orange" },
-  { id: "jpg-to-pdf", title: "Ảnh sang PDF", desc: "Ghép JPG, PNG thành file PDF", icon: "🖼️", color: "pink" },
-  { id: "html-to-pdf", title: "HTML sang PDF", desc: "Chuyển trang web thành PDF", icon: "🌐", color: "purple" },
-  // Chuyển từ PDF ra
-  { id: "pdf-to-markdown", href: "/tools/pdf-sang-md", title: "PDF sang Markdown", desc: "Chuyển PDF sang .md dùng với ChatGPT, Claude, Gemini", icon: "📝", color: "emerald" },
-  { id: "merge", href: "/tools/ghep-pdf", title: "Ghép PDF", desc: "Ghép nhiều PDF thành 1 file, có thể chọn trang cụ thể của từng file. Sắp xếp lại bằng kéo thả.", icon: "🧩", color: "teal" },
-  { id: "pdf-to-word", title: "PDF sang Word", desc: "Chuyển PDF thành file Word có thể sửa", icon: "📝", color: "blue" },
-  { id: "pdf-to-jpg", title: "PDF sang Ảnh", desc: "Xuất từng trang PDF thành ảnh", icon: "🖼️", color: "yellow" },
-  { id: "pdf-to-excel", title: "PDF sang Excel", desc: "Trích xuất bảng từ PDF sang Excel", icon: "📊", color: "green" },
-  // Chỉnh sửa PDF
-  { id: "split", title: "Tách PDF", desc: "Chia PDF thành nhiều file nhỏ", icon: "✂️", color: "red" },
-  { id: "compress", title: "Nén PDF", desc: "Giảm dung lượng file PDF", icon: "🗜️", color: "indigo" },
-  { id: "rotate", title: "Xoay PDF", desc: "Xoay trang PDF theo góc tùy chọn", icon: "🔄", color: "cyan" },
-  { id: "watermark", title: "Thêm watermark", desc: "Thêm chữ đóng dấu vào PDF", icon: "💧", color: "gray" },
-  { id: "page-numbers", title: "Đánh số trang", desc: "Tự động đánh số trang cho PDF", icon: "🔢", color: "violet" },
-  { id: "delete-pages", title: "Xóa trang", desc: "Xóa các trang không cần trong PDF", icon: "🗑️", color: "red" },
-  { id: "extract-pages", title: "Trích xuất trang", desc: "Lấy một số trang từ PDF", icon: "📤", color: "orange" },
-  // Bảo mật
-  { id: "protect", title: "Bảo vệ PDF", desc: "Đặt mật khẩu cho file PDF", icon: "🔒", color: "red" },
-  { id: "unlock", title: "Mở khóa PDF", desc: "Xóa mật khẩu khỏi PDF", icon: "🔓", color: "green" },
-  { id: "flatten", title: "Làm phẳng PDF", desc: "Chuyển PDF về dạng không chỉnh sửa được", icon: "📋", color: "gray" },
-  // Khác
-  { id: "ocr", title: "OCR - Nhận dạng chữ", desc: "Nhận dạng chữ trong ảnh/PDF scan", icon: "🔍", color: "blue" },
-  { id: "sign", title: "Ký PDF", desc: "Thêm chữ ký vào tài liệu PDF", icon: "✍️", color: "purple" },
-  { id: "repair", title: "Sửa PDF lỗi", desc: "Khôi phục file PDF bị hỏng", icon: "🔧", color: "yellow" },
-];
-
-const colorMap = {
-  blue: "bg-blue-50 text-blue-600 border-blue-100",
-  green: "bg-green-50 text-green-600 border-green-100",
-  orange: "bg-orange-50 text-orange-600 border-orange-100",
-  pink: "bg-pink-50 text-pink-600 border-pink-100",
-  purple: "bg-purple-50 text-purple-600 border-purple-100",
-  yellow: "bg-yellow-50 text-yellow-600 border-yellow-100",
-  teal: "bg-teal-50 text-teal-600 border-teal-100",
-  red: "bg-red-50 text-red-600 border-red-100",
-  indigo: "bg-indigo-50 text-indigo-600 border-indigo-100",
-  cyan: "bg-cyan-50 text-cyan-600 border-cyan-100",
-  gray: "bg-gray-50 text-gray-600 border-gray-100",
-  violet: "bg-violet-50 text-violet-600 border-violet-100",
-  emerald: "bg-emerald-50 text-emerald-600 border-emerald-100",
+const accentRing = {
+  emerald: "from-emerald-500/10 ring-emerald-500/20 text-emerald-400",
+  teal:    "from-teal-500/10    ring-teal-500/20    text-teal-300",
+  amber:   "from-amber-500/10   ring-amber-500/20   text-amber-400",
+  blue:    "from-blue-500/10    ring-blue-500/20    text-blue-300",
+  indigo:  "from-indigo-500/10  ring-indigo-500/20  text-indigo-300",
+  violet:  "from-violet-500/10  ring-violet-500/20  text-violet-300",
+  purple:  "from-purple-500/10  ring-purple-500/20  text-purple-300",
+  pink:    "from-pink-500/10    ring-pink-500/20    text-pink-300",
+  orange:  "from-orange-500/10  ring-orange-500/20  text-orange-300",
+  red:     "from-red-500/10     ring-red-500/20     text-red-300",
+  cyan:    "from-cyan-500/10    ring-cyan-500/20    text-cyan-300",
+  gray:    "from-neutral-500/10 ring-neutral-500/20 text-neutral-300",
 };
+
+function ToolCard({ tool }) {
+  const ring = accentRing[tool.accent] ?? accentRing.emerald;
+  const isComing = tool.status !== "ready";
+
+  const inner = (
+    <div
+      className={[
+        "group h-full relative rounded-2xl border border-neutral-800 bg-neutral-900/60 p-5",
+        "transition-all duration-200",
+        isComing
+          ? "opacity-60 cursor-not-allowed"
+          : "hover:border-emerald-500/40 hover:bg-neutral-900 hover:-translate-y-0.5",
+      ].join(" ")}
+    >
+      <div
+        className={`w-11 h-11 rounded-xl bg-gradient-to-br ${ring} ring-1 flex items-center justify-center text-2xl mb-3`}
+        aria-hidden="true"
+      >
+        {tool.icon}
+      </div>
+      <h3 className="font-semibold text-neutral-100 text-sm mb-1 group-hover:text-emerald-400 transition-colors">
+        {tool.title}
+      </h3>
+      <p className="text-xs text-neutral-500 leading-relaxed">{tool.desc}</p>
+
+      {isComing && (
+        <span className="absolute top-3 right-3 text-[10px] uppercase tracking-wider rounded-full border border-amber-800 bg-amber-950/40 text-amber-400 px-2 py-0.5">
+          Sắp có
+        </span>
+      )}
+    </div>
+  );
+
+  if (isComing) {
+    return <div aria-disabled="true">{inner}</div>;
+  }
+
+  return (
+    <Link
+      href={`/tools/${tool.slug}`}
+      aria-label={`Mở công cụ ${tool.title}`}
+      className="block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-950 rounded-2xl"
+    >
+      {inner}
+    </Link>
+  );
+}
+
+function CategorySection({ category }) {
+  const list = getToolsByCategory(category.key);
+  if (list.length === 0) return null;
+  return (
+    <section className="mb-12" aria-labelledby={`cat-${category.key}`}>
+      <div className="mb-5 flex items-end justify-between gap-4 flex-wrap">
+        <div>
+          <h2
+            id={`cat-${category.key}`}
+            className="text-xl sm:text-2xl font-bold text-neutral-100"
+          >
+            {category.title}
+          </h2>
+          <p className="text-sm text-neutral-500 mt-1">{category.desc}</p>
+        </div>
+        <span className="text-xs text-neutral-600">
+          {list.filter((t) => t.status === "ready").length}/{list.length} công cụ
+        </span>
+      </div>
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+        {list.map((tool) => (
+          <ToolCard key={tool.slug} tool={tool} />
+        ))}
+      </div>
+    </section>
+  );
+}
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <header className="bg-white border-b border-gray-200 sticky top-0 z-10">
-        <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <span className="text-2xl">📄</span>
-            <span className="text-xl font-bold text-gray-800">PDF Việt</span>
-            <span className="text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded-full font-medium">Miễn phí 100%</span>
-          </div>
-          <p className="text-sm text-gray-500 hidden sm:block">Công cụ PDF tiếng Việt — Nhanh, an toàn, không cần đăng ký</p>
-        </div>
-      </header>
+    <>
+      <CosmicHero />
 
-      {/* Hero */}
-      <div className="bg-white border-b border-gray-100">
-        <div className="max-w-6xl mx-auto px-4 py-12 text-center">
-          <h1 className="text-4xl font-bold text-gray-900 mb-3">
-            Công cụ PDF miễn phí
-          </h1>
-          <p className="text-lg text-gray-500">
-            Chuyển đổi, chỉnh sửa, bảo vệ file PDF — Tất cả miễn phí, không giới hạn
+      <main
+        id="cong-cu"
+        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20 scroll-mt-20"
+      >
+        <div className="mb-10 text-center">
+          <h2 className="text-2xl sm:text-3xl font-bold text-neutral-100">
+            Toàn bộ công cụ
+          </h2>
+          <p className="text-sm text-neutral-500 mt-2">
+            Bấm vào tool để bắt đầu — tất cả chạy ngay trên trình duyệt.
           </p>
         </div>
-      </div>
-
-      {/* Tools Grid */}
-      <main className="max-w-6xl mx-auto px-4 py-10">
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-          {tools.map((tool) => (
-            <Link
-              key={tool.id}
-              href={tool.href ?? `/tool/${tool.id}`}
-              className="bg-white rounded-xl border border-gray-200 p-5 hover:shadow-md hover:border-blue-200 transition-all group cursor-pointer"
-            >
-              <div className={`w-12 h-12 rounded-xl border flex items-center justify-center text-2xl mb-3 ${colorMap[tool.color] || colorMap.blue}`}>
-                {tool.icon}
-              </div>
-              <h3 className="font-semibold text-gray-800 text-sm mb-1 group-hover:text-blue-600 transition-colors">
-                {tool.title}
-              </h3>
-              <p className="text-xs text-gray-400 leading-relaxed">
-                {tool.desc}
-              </p>
-            </Link>
-          ))}
-        </div>
+        {CATEGORIES.map((cat) => (
+          <CategorySection key={cat.key} category={cat} />
+        ))}
       </main>
-
-      {/* Footer */}
-      <footer className="text-center py-8 text-sm text-gray-400 border-t border-gray-100 mt-10">
-  <p>PDF Việt — Miễn phí, không quảng cáo, không lưu file của bạn</p>
-  <p className="mt-2 text-xs text-gray-400">
-    App by Quý Giáp — Follow Facebook để cập nhật thêm nhiều app mới về giáo dục:{" "}
-    <a
-      href="https://www.facebook.com/langnghelamchame/"
-      target="_blank"
-      rel="noopener noreferrer"
-      className="inline-flex items-center gap-1 text-blue-500 hover:text-blue-600 font-medium ml-1"
-    >
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="#1877F2">
-        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-      </svg>
-      Facebook
-    </a>
-  </p>
-</footer>
-    </div>
+    </>
   );
 }
