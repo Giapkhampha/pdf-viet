@@ -123,10 +123,10 @@ export const tools = [
   {
     slug: "nen-pdf",
     title: "Nén PDF",
-    desc: "Giảm dung lượng file PDF qua tối ưu object stream.",
+    desc: "Giảm dung lượng PDF xuống dưới mức bạn chọn — 3, 5 hay 10 MB.",
     icon: "🗜️", accent: "indigo", category: "edit-pdf",
     accept: "application/pdf", multiple: false, status: "ready",
-    handler: "compressPdf",
+    customRoute: true,
   },
   {
     slug: "xoay-pdf",
