@@ -22,6 +22,7 @@ export const CATEGORIES = [
   { key: "edit-pdf",         title: "Chỉnh sửa PDF",            desc: "Ghép, tách, xoay, nén, watermark..." },
   { key: "image-tools",      title: "Xử lý ảnh 📷",              desc: "HEIC→JPG, resize, nén, chuyển sang WebP" },
   { key: "office-data",      title: "Office & Dữ liệu 📊",       desc: "CSV ↔ Excel ↔ JSON, Word/Markdown chuyển đổi" },
+  { key: "code-tools",       title: "Mã QR & Barcode 📱",       desc: "Tạo và đọc mã QR, sinh mã vạch in nhãn" },
   { key: "security",         title: "Bảo mật PDF",              desc: "Đặt và gỡ mật khẩu, làm phẳng" },
   { key: "ai-tools",         title: "Công cụ cho AI & OCR",     desc: "Trích xuất text cho ChatGPT, Claude, Gemini" },
   { key: "vietnamese",       title: "Tiện ích tiếng Việt 🌱",    desc: "Bảng mã VNI, bỏ dấu, đếm ký tự, lịch âm-dương" },
@@ -249,6 +250,40 @@ export const tools = [
     desc: "Render Markdown thành PDF qua cửa sổ in — giữ font tiếng Việt, hỗ trợ heading/bold/list/code/bảng.",
     icon: "📝", accent: "violet", category: "office-data",
     accept: ".md,.markdown", multiple: false, status: "ready",
+  },
+
+  // ── Mã QR & Barcode ──────────────────────────────────────────────────────
+  {
+    slug: "tao-qr",
+    title: "Tạo mã QR",
+    desc: "Tạo mã QR từ văn bản, URL, WiFi, vCard. Tải PNG độ phân giải cao.",
+    icon: "📱", accent: "blue", category: "code-tools",
+    accept: null, multiple: false, status: "ready",
+  },
+  {
+    slug: "doc-qr",
+    title: "Đọc mã QR",
+    desc: "Tải ảnh có mã QR, decode ra text/URL/WiFi/vCard ngay trên trình duyệt.",
+    icon: "🔍", accent: "emerald", category: "code-tools",
+    accept: "image/*", multiple: false, status: "ready",
+  },
+  {
+    slug: "tao-ma-vach",
+    title: "Tạo mã vạch",
+    desc: "Tạo mã vạch Code 128, Code 39, EAN-13, EAN-8 để in nhãn sản phẩm.",
+    icon: "📊", accent: "violet", category: "code-tools",
+    accept: null, multiple: false, status: "ready",
+  },
+
+  // ── AI & OCR (mở rộng) ────────────────────────────────────────────────────
+  // Lưu ý: ocr-tieng-viet đã ở section "AI & OCR" gốc bên dưới. Thêm
+  // phan-tich-pdf vào cùng category cho gọn.
+  {
+    slug: "phan-tich-pdf",
+    title: "Phân tích PDF",
+    desc: "Đếm trang, từ, ký tự, ước lượng thời gian đọc, top từ phổ biến nhất trong PDF.",
+    icon: "🔍", accent: "cyan", category: "ai-tools",
+    accept: "application/pdf", multiple: false, status: "ready",
   },
 
   // ── Bảo mật ──────────────────────────────────────────────────────────────
