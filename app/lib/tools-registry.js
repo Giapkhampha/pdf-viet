@@ -62,6 +62,14 @@ export const tools = [
     handler: "imagesToPdf",
   },
   {
+    slug: "epub-sang-pdf",
+    title: "EPUB sang PDF",
+    desc: "Chuyển sách điện tử .epub (Kindle đã gỡ DRM) thành PDF — giữ ảnh, bìa, font tiếng Việt.",
+    icon: "📚", accent: "teal", category: "convert-to-pdf",
+    accept: ".epub,application/epub+zip", multiple: false, status: "ready",
+    customRoute: true, note: "print",
+  },
+  {
     slug: "ppt-sang-pdf",
     title: "PowerPoint sang PDF",
     desc: "Chuyển bài thuyết trình .pptx thành PDF — sắp có.",

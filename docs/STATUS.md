@@ -4,10 +4,21 @@
 > Đọc file này đầu mỗi phiên dài để biết chính xác đang ở đâu.
 
 ## Cập nhật lần cuối
-**04/06/2026** — Phase 3 — Office & Dữ liệu LIVE (6 tool: CSV↔Excel, Excel↔JSON, Word→MD, MD→PDF).
+**09/07/2026** — Thêm tool **EPUB → PDF** (chuyển kho sách Kindle/EPUB sang PDF, chạy 100% trên trình duyệt).
 
 ## Phiên bản hiện tại
-`v0.9.0` — **Phase 3 hoàn tất**. 31 tool đã chạy được (17 PDF + 4 tiếng Việt + 4 ảnh + 6 office/data). Trang chủ 8 category — thêm "Office & Dữ liệu 📊".
+`v0.9.1` — 32 tool đã chạy được. Thêm **EPUB → PDF** vào nhóm "Chuyển sang PDF".
+
+---
+
+## 📚 v0.9.1 — EPUB → PDF (XONG 09/07/2026)
+> Theo yêu cầu Ba Maya: chuyển toàn bộ kho sách Kindle/EPUB sang PDF. **0 package mới** — tự parse ZIP bằng `DecompressionStream` native của trình duyệt.
+
+- [x] **EPUB sang PDF** ([/tools/epub-sang-pdf](/tools/epub-sang-pdf)) — thả file `.epub` → đọc OPF (manifest + spine) → ghép chương theo thứ tự đọc → nhúng ảnh/bìa data URI → mở cửa sổ in để "Save as PDF".
+- [x] `app/lib/ebook/unzip.js` — ZIP reader tối giản, giải nén `deflate-raw` bằng `DecompressionStream` (không cài jszip).
+- [x] `app/lib/ebook/epub-to-pdf.js` — parse EPUB + làm sạch XHTML + CSS sách A4, print engine của browser lo pagination.
+- [x] Format-map: gắn vào planet PDF. Route riêng `app/tools/epub-sang-pdf/page.jsx` (customRoute).
+- [x] Lưu ý UX: Kindle (AZW/KFX) cần Calibre gỡ DRM → EPUB trước; xử lý mỗi lần 1 cuốn.
 
 ---
 
@@ -176,6 +187,7 @@
 | 04/06/2026 | **v0.7.0** | **Phase 1 — Tiện ích tiếng Việt LIVE**: bỏ dấu (3 chế độ), đếm ký tự (thay cho "đổi số ra chữ" theo yêu cầu Ba Maya), VNI→Unicode beta, lịch âm-dương (thuật toán Hồ Ngọc Đức + Can Chi). Click TXT planet trên trang chủ giờ hiện 4 tool ready. |
 | 04/06/2026 | **v0.8.0** | **Phase 2 — Xử lý ảnh LIVE**: HEIC→JPG (heic2any lazy load), Resize ảnh (Canvas + giữ tỉ lệ), Nén ảnh (slider quality), Ảnh→WebP (giảm ~30%). Thêm category mới "Xử lý ảnh 📷". 25 tool ready. |
 | 04/06/2026 | **v0.9.0** | **Phase 3 — Office & Dữ liệu LIVE**: CSV↔Excel, Excel↔JSON, Word→Markdown (mammoth + HTML→MD converter tự viết), Markdown→PDF (marked + print). Thêm category "Office & Dữ liệu 📊". 31 tool ready. |
+| 09/07/2026 | **v0.9.1** | **EPUB → PDF**: parse ZIP bằng `DecompressionStream` native (0 package mới), đọc OPF manifest/spine, nhúng ảnh + bìa, in ra PDF khổ A4. Cho phép chuyển kho sách Kindle/EPUB sang PDF. 32 tool ready. |
 
 ---
 

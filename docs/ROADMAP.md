@@ -79,6 +79,14 @@ Xem chi tiết trong `STATUS.md`. Tóm tắt: thống nhất 22 tool về 1 regi
 
 ---
 
+## ✅ Ngoài phase — EPUB → PDF (XONG 09/07/2026, v0.9.1)
+
+Theo yêu cầu trực tiếp: chuyển kho sách Kindle/EPUB sang PDF.
+- [x] **EPUB → PDF** ([/tools/epub-sang-pdf](/tools/epub-sang-pdf)) — parse ZIP bằng `DecompressionStream` native (0 package mới), đọc OPF, nhúng ảnh + bìa, in ra PDF A4.
+- [ ] *(Ý tưởng sau)* Batch nhiều EPUB một lượt — hiện chặn vì popup blocker chỉ cho 1 cửa sổ in/lần.
+
+---
+
 ## 🔍 Phase 4 — QR, mã vạch & media
 
 - [ ] **QR Code tạo + đọc** (`/tools/qr-code`) — `qrcode` + `jsqr` (~50KB) — viral cao
