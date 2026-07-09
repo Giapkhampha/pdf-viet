@@ -29,6 +29,7 @@ const SLUG_TO_FORMATS = {
   "excel-sang-pdf":  ["excel", "pdf"],
   "html-sang-pdf":   ["html", "pdf"],
   "anh-sang-pdf":    ["jpg", "png", "pdf"],
+  "epub-sang-pdf":   ["pdf"],
   "ppt-sang-pdf":    ["ppt", "pdf"],
 
   // Chuyển từ PDF
