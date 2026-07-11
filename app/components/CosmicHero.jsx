@@ -56,10 +56,11 @@ function FloatingPlanet({
 }
 
 /**
- * Hành tinh cho layout điện thoại — xếp theo flow trong lưới 3×3, KHÔNG absolute
- * nên không đè lên tiêu đề. Hiển thị đủ 9 định dạng, vẫn bấm được để mở modal.
+ * Một hành tinh trong lưới (điện thoại / máy tính bảng) — xếp theo flow nên
+ * không đè lên tiêu đề. Vẫn là quả cầu pha lê giống bản gốc, bấm được để mở
+ * modal, có animation trôi + glow nhẹ.
  */
-function MobilePlanet({ formatKey, index = 0, onClick }) {
+function GridPlanet({ formatKey, index = 0, size, onClick }) {
   const f = FORMATS[formatKey];
   if (!f) return null;
   const anim = ["animate-float-slow", "animate-float-mid", "animate-float-fast"][index % 3];
@@ -70,14 +71,28 @@ function MobilePlanet({ formatKey, index = 0, onClick }) {
       aria-label={`Xem công cụ chuyển đổi với ${f.label}`}
       className={[
         "bg-transparent border-0 p-0 rounded-full",
-        "transition-transform duration-200 ease-out active:scale-90",
+        "transition-transform duration-200 ease-out hover:scale-110 active:scale-95",
         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-950",
         anim,
       ].join(" ")}
       style={{ animationDelay: `${(index % 5) * 0.35}s` }}
     >
-      <PlanetIcon label={f.label} color={f.accent} size={66} />
+      <PlanetIcon label={f.label} color={f.accent} size={size} />
     </button>
+  );
+}
+
+/**
+ * Lưới 3×3 đủ 9 hành tinh cho điện thoại & máy tính bảng (không dùng absolute).
+ * Desktop (≥ lg) mới bật hiệu ứng hành tinh nổi phân tán.
+ */
+function PlanetGrid({ size, onClick, className = "" }) {
+  return (
+    <div className={`pointer-events-auto mx-auto grid-cols-3 justify-items-center ${className}`}>
+      {HERO_FORMAT_KEYS.map((key, i) => (
+        <GridPlanet key={key} formatKey={key} index={i} size={size} onClick={onClick} />
+      ))}
+    </div>
   );
 }
 
@@ -89,10 +104,10 @@ export default function CosmicHero() {
       <section className="relative overflow-hidden border-b border-neutral-800">
         <CosmicBackground />
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 sm:min-h-[640px] lg:min-h-[720px]">
-          {/* Cụm hành tinh nổi (absolute) — chỉ hiện từ tablet trở lên.
-              Trên điện thoại dùng lưới 3×3 gọn bên dưới để không đè lên chữ. */}
-          <div className="hidden sm:block">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 lg:min-h-[720px]">
+          {/* Cụm hành tinh nổi (absolute) — chỉ bật ở desktop (≥ lg) nơi đủ chỗ cho
+              cả 9 quả cầu trôi mà không đè chữ. Điện thoại & máy tính bảng dùng lưới. */}
+          <div className="hidden lg:block">
           {/* PDF trung tâm phía trên */}
           <FloatingPlanet
             formatKey="pdf"
@@ -184,13 +199,19 @@ export default function CosmicHero() {
           {/* ─── Title + CTA giữa ─── */}
           {/* pointer-events-none ở wrapper để click xuyên qua bắt được planet phía dưới;
               các phần tử cần click (link, button) tự bật pointer-events-auto. */}
-          <div className="relative z-10 flex flex-col items-center justify-center text-center pt-10 sm:pt-40 lg:pt-44 pb-16 sm:pb-40 pointer-events-none">
-            {/* Lưới hành tinh cho điện thoại — đủ 9 định dạng, không đè lên tiêu đề. */}
-            <div className="sm:hidden pointer-events-auto mb-9 grid grid-cols-3 gap-3 justify-items-center max-w-[17rem]">
-              {HERO_FORMAT_KEYS.map((key, i) => (
-                <MobilePlanet key={key} formatKey={key} index={i} onClick={setSelectedFormat} />
-              ))}
-            </div>
+          <div className="relative z-10 flex flex-col items-center justify-center text-center pt-10 lg:pt-44 pb-16 lg:pb-40 pointer-events-none">
+            {/* Điện thoại: lưới 9 hành tinh cỡ vừa. */}
+            <PlanetGrid
+              size={84}
+              onClick={setSelectedFormat}
+              className="grid sm:hidden mb-9 max-w-[20rem] gap-x-5 gap-y-6"
+            />
+            {/* Máy tính bảng: hành tinh lớn hơn cho giống bản gốc, vẫn đủ 9. */}
+            <PlanetGrid
+              size={112}
+              onClick={setSelectedFormat}
+              className="hidden sm:grid lg:hidden mb-10 max-w-xl gap-x-7 gap-y-8"
+            />
             <p className="inline-flex items-center gap-2 rounded-full border border-emerald-800/70 bg-emerald-950/40 px-3 py-1 text-xs text-emerald-400 mb-6 backdrop-blur-sm pointer-events-auto">
               🌱 Một phần của hệ sinh thái{" "}
               <a
