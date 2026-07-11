@@ -4,7 +4,7 @@ import { useState } from "react";
 import PlanetIcon from "@/app/components/PlanetIcon";
 import CosmicBackground from "@/app/components/CosmicBackground";
 import FormatModal from "@/app/components/FormatModal";
-import { FORMATS } from "@/app/lib/format-map";
+import { FORMATS, HERO_FORMAT_KEYS } from "@/app/lib/format-map";
 
 /**
  * Một hành tinh trong hero — button click để mở FormatModal.
@@ -55,6 +55,32 @@ function FloatingPlanet({
   );
 }
 
+/**
+ * Hành tinh cho layout điện thoại — xếp theo flow trong lưới 3×3, KHÔNG absolute
+ * nên không đè lên tiêu đề. Hiển thị đủ 9 định dạng, vẫn bấm được để mở modal.
+ */
+function MobilePlanet({ formatKey, index = 0, onClick }) {
+  const f = FORMATS[formatKey];
+  if (!f) return null;
+  const anim = ["animate-float-slow", "animate-float-mid", "animate-float-fast"][index % 3];
+  return (
+    <button
+      type="button"
+      onClick={() => onClick(f)}
+      aria-label={`Xem công cụ chuyển đổi với ${f.label}`}
+      className={[
+        "bg-transparent border-0 p-0 rounded-full",
+        "transition-transform duration-200 ease-out active:scale-90",
+        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-950",
+        anim,
+      ].join(" ")}
+      style={{ animationDelay: `${(index % 5) * 0.35}s` }}
+    >
+      <PlanetIcon label={f.label} color={f.accent} size={66} />
+    </button>
+  );
+}
+
 export default function CosmicHero() {
   const [selectedFormat, setSelectedFormat] = useState(null);
 
@@ -63,7 +89,10 @@ export default function CosmicHero() {
       <section className="relative overflow-hidden border-b border-neutral-800">
         <CosmicBackground />
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 min-h-[520px] sm:min-h-[640px] lg:min-h-[720px]">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 sm:min-h-[640px] lg:min-h-[720px]">
+          {/* Cụm hành tinh nổi (absolute) — chỉ hiện từ tablet trở lên.
+              Trên điện thoại dùng lưới 3×3 gọn bên dưới để không đè lên chữ. */}
+          <div className="hidden sm:block">
           {/* PDF trung tâm phía trên */}
           <FloatingPlanet
             formatKey="pdf"
@@ -150,11 +179,18 @@ export default function CosmicHero() {
             delay="0.6s"
             onClick={setSelectedFormat}
           />
+          </div>
 
           {/* ─── Title + CTA giữa ─── */}
           {/* pointer-events-none ở wrapper để click xuyên qua bắt được planet phía dưới;
               các phần tử cần click (link, button) tự bật pointer-events-auto. */}
-          <div className="relative z-10 flex flex-col items-center justify-center text-center pt-32 sm:pt-40 lg:pt-44 pb-32 sm:pb-40 pointer-events-none">
+          <div className="relative z-10 flex flex-col items-center justify-center text-center pt-10 sm:pt-40 lg:pt-44 pb-16 sm:pb-40 pointer-events-none">
+            {/* Lưới hành tinh cho điện thoại — đủ 9 định dạng, không đè lên tiêu đề. */}
+            <div className="sm:hidden pointer-events-auto mb-9 grid grid-cols-3 gap-3 justify-items-center max-w-[17rem]">
+              {HERO_FORMAT_KEYS.map((key, i) => (
+                <MobilePlanet key={key} formatKey={key} index={i} onClick={setSelectedFormat} />
+              ))}
+            </div>
             <p className="inline-flex items-center gap-2 rounded-full border border-emerald-800/70 bg-emerald-950/40 px-3 py-1 text-xs text-emerald-400 mb-6 backdrop-blur-sm pointer-events-auto">
               🌱 Một phần của hệ sinh thái{" "}
               <a
