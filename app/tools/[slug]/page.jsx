@@ -119,6 +119,16 @@ async function runHandler(handlerKey, files, opts, onProgress) {
       );
       return { kind: "single" };
     }
+    case "pdfToEpub": {
+      const { pdfToEpub } = await import("@/app/lib/ebook/pdf-to-epub");
+      const bytes = await pdfToEpub(files[0], onProgress);
+      triggerDownload(
+        bytes,
+        replaceExt(files[0].name, ".epub"),
+        "application/epub+zip"
+      );
+      return { kind: "single" };
+    }
     case "wordToPdf": {
       const { wordToPdfViaPrint } = await import("@/app/lib/word-to-pdf");
       await wordToPdfViaPrint(files[0], onProgress);
