@@ -110,6 +110,14 @@ export const tools = [
     accept: "application/pdf", multiple: false, status: "ready",
     handler: "pdfToImages",
   },
+  {
+    slug: "pdf-sang-epub",
+    title: "PDF sang EPUB",
+    desc: "Chuyển PDF thành sách điện tử .epub đọc trên Kindle, điện thoại — chữ tự co giãn, giữ tiếng Việt.",
+    icon: "📚", accent: "teal", category: "convert-from-pdf",
+    accept: "application/pdf", multiple: false, status: "ready",
+    handler: "pdfToEpub",
+  },
 
   // ── Chỉnh sửa PDF ────────────────────────────────────────────────────────
   {
